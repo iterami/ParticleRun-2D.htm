@@ -326,9 +326,6 @@ function setmode(newmode, newgame){
 }
 
 var animationFrame = 0;
-var best = window.localStorage.getItem('ParticleRun-2D.htm-best') === null
-  ? 0
-  : parseInt(window.localStorage.getItem('ParticleRun-2D.htm-best'));
 var buffer = 0;
 var camera_x = 0;
 var camera_y = 0;
@@ -371,7 +368,7 @@ window.onkeydown = function(e){
 
     var key = e.keyCode || e.which;
 
-    // ESC: update best and return to main menu.
+    // ESC: return to main menu.
     if(key === 27){
         setmode(0, 1);
         return;
