@@ -115,7 +115,8 @@ function logic(){
     }
 
     for(var gate in gates){
-        if(frame_counter % gates[gate]['interval'] == 0){
+        if(gates[gate]['interval'] > 0
+          && frame_counter % gates[gate]['interval'] == 0){
             gates[gate]['switch']();
         }
 
@@ -225,6 +226,7 @@ function setmode(newmode, newgame){
 
     gates = [];
     particles = [];
+    spawner = {};
 
     mode = newmode;
 
@@ -239,62 +241,8 @@ function setmode(newmode, newgame){
         camera_x = 0;
         camera_y = 0;
         frame_counter = 0;
-        gates = [
-          {
-            'color': '#aa1',
-            'dx': 1,
-            'dy': 1,
-            'interval': 50,
-            'switch': function(){
-                this.color = this.color == '#aa1'
-                  ? '#1aa'
-                  : '#aa1';
-                this.dx = this.dx == 1
-                  ? -1
-                  : 1;
-            },
-            'x': 0,
-            'y': 0,
-          },
-          {
-            'color': '#aaa',
-            'dx': 1,
-            'dy': -1,
-            'interval': 25,
-            'switch': function(){
-            },
-            'x': -100,
-            'y': 100,
-          },
-          {
-            'color': '#a11',
-            'dx': 5,
-            'dy': -1,
-            'interval': 23,
-            'switch': function(){
-                if(Math.random() > .23){
-                    return;
-                }
-
-                this.color = this.color == '#a11'
-                  ? '#1a1'
-                  : '#a11';
-                this.dx = this.dx == 5
-                  ? -1
-                  : 5;
-            },
-            'x': 100,
-            'y': 100,
-          },
-        ];
         key_left = false;
         key_right = false;
-        spawner = {
-          'color': '#a1a',
-          'spawn': 1,
-          'x': 0,
-          'y': -100,
-        };
 
         // If it's a newgame from the main menu, setup canvas and buffers.
         if(newgame){
@@ -305,6 +253,8 @@ function setmode(newmode, newgame){
 
             resize();
         }
+
+        load_level();
 
         animationFrame = window.requestAnimationFrame(draw);
         interval = window.setInterval(
