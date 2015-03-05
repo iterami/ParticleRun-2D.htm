@@ -98,8 +98,8 @@ function logic(){
         particles[particle]['x'] += particles[particle]['dx'];
         particles[particle]['y'] += particles[particle]['dy'];
 
-        if(particles[particle]['x'] > x
-          || particles[particle]['y'] > y){
+        if(Math.abs(particles[particle]['x']) > 999
+          || Math.abs(particles[particle]['y']) > 999){
             delete particles[particle];
         }
     }
