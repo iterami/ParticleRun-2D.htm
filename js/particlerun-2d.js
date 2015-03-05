@@ -104,14 +104,8 @@ function logic(){
         }
     }
 
-    if(frame_counter == spawner['spawn']){
-        spawner['spawn'] = Math.floor(Math.random() * 99);
-        particles.push({
-          'dx': 0,
-          'dy': 1,
-          'x': spawner['x'],
-          'y': spawner['y'],
-        });
+    if(frame_counter %  spawner['interval'] == 0){
+        spawner['spawn']();
     }
 
     for(var gate in gates){
