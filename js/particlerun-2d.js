@@ -74,19 +74,19 @@ function draw(){
 
 function logic(){
     if(key_left){
-        camera_x -= 2;
+        camera_x -= 5;
     }
 
     if(key_right){
-        camera_x += 2;
+        camera_x += 5;
     }
 
     if(key_down){
-        camera_y += 2;
+        camera_y += 5;
     }
 
     if(key_up){
-        camera_y -= 2;
+        camera_y -= 5;
     }
 
     frame_counter += 1;
