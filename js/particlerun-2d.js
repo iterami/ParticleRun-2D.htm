@@ -164,22 +164,17 @@ function resize(){
     x = width / 2;
 }
 
+// Save settings into window.localStorage if they differ from default.
 function save(){
-    var loop_counter = 1;
-    do{
-        var id = [
-          'audio-volume',
-          'ms-per-frame',
-        ][loop_counter];
-
+    var ids = {
+      'audio-volume': 1,
+      'ms-per-frame': 25,
+    };
+    for(var id in ids){
         if(isNaN(document.getElementById(id).value)
-          || document.getElementById(id).value === [1, 25][loop_counter]){
+          || document.getElementById(id).value === ids[id]){
             window.localStorage.removeItem('ParticleRun-2D.htm-' + id);
-            settings[id] = [
-              1,
-              25,
-            ][loop_counter];
-            document.getElementById(id).value = settings[id];
+            settings[id] = ids[id];
 
         }else{
             settings[id] = parseFloat(document.getElementById(id).value);
@@ -188,21 +183,16 @@ function save(){
               settings[id]
             );
         }
-    }while(loop_counter--);
+    }
 
-    loop_counter = 1;
-    do{
-        id = [
-          'movement-keys',
-          'restart-key',
-        ][loop_counter];
-
-        if(document.getElementById(id).value === ['WASD', 'H',][loop_counter]){
+    ids = {
+      'movement-keys': 'WASD',
+      'restart-key': 'H',
+    };
+    for(id in ids){
+        if(document.getElementById(id).value === ids[id]){
             window.localStorage.removeItem('ParticleRun-2D.htm-' + id);
-            settings[id] = [
-              'WASD',
-              'H',
-            ][loop_counter];
+            settings[id] = ids[id];
 
         }else{
             settings[id] = document.getElementById(id).value;
@@ -211,7 +201,7 @@ function save(){
               settings[id]
             );
         }
-    }while(loop_counter--);
+    }
 }
 
 function setmode(newmode, newgame){
@@ -261,7 +251,7 @@ function setmode(newmode, newgame){
         buffer = 0;
         canvas = 0;
 
-        document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><b>ParticleRun-2D.htm</b></div><hr><div class=c><a onclick="setmode(1, 1)">New Run</a></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=4 value='
+        document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><a onclick="setmode(1, 1)">New Run</a></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=4 value='
           + settings['movement-keys'] + '>Camera ↑←↓→<br><input id=restart-key maxlength=1 value='
           + settings['restart-key'] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
           + settings['audio-volume'] + '>Audio<br><input id=ms-per-frame value='
