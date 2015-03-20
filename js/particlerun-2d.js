@@ -126,13 +126,13 @@ function logic(){
     }
 }
 
-function play_audio(i){
+function play_audio(id){
     if(settings['audio-volume'] <= 0){
         return;
     }
 
-    document.getElementById(i).currentTime = 0;
-    document.getElementById(i).play();
+    document.getElementById(id).currentTime = 0;
+    document.getElementById(id).play();
 }
 
 function reset(){
