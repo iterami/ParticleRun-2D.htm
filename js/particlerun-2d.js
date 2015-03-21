@@ -1,4 +1,5 @@
 function create_gate(gate){
+    gate = gate || {};
     gates.push({
       'color': gate['color'] || '#fff',
       'dx': gate['dx'] || 0,
@@ -13,6 +14,7 @@ function create_gate(gate){
 }
 
 function create_spawner(spawner){
+    spawner = spawner || {};
     spawners.push({
       'color': spawner['color'] || '#fff',
       'dx': spawner['dx'] || 0,
