@@ -91,6 +91,11 @@ function load_level(){
       'interval': 10,
       'spawn': function(){
         this.interval = Math.ceil(Math.random() * 99);
+
+        if(particles.length >= settings['max-particles']){
+            return;
+        }
+
         particles.push({
           'dx': this['dx'],
           'dy': this['dy'],
