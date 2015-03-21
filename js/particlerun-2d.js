@@ -104,7 +104,7 @@ function logic(){
         }
     }
 
-    if(frame_counter %  spawner['interval'] == 0){
+    if(frame_counter % spawner['interval'] == 0){
         spawner['spawn']();
     }
 
