@@ -15,20 +15,20 @@ function draw(){
     // Draw spawner.
     buffer.fillStyle = spawner['color'];
     buffer.fillRect(
-      spawner['x'] - 15,
-      spawner['y'] - 15,
-      30,
-      30
+      spawner['x'],
+      spawner['y'],
+      spawner['width'],
+      spawner['height']
     );
 
     // Draw gates.
     for(var gate in gates){
         buffer.fillStyle = gates[gate]['color'];
         buffer.fillRect(
-          gates[gate]['x'] - 20,
-          gates[gate]['y'] - 20,
-          40,
-          40
+          gates[gate]['x'],
+          gates[gate]['y'],
+          gates[gate]['width'],
+          gates[gate]['height']
        );
     }
 
@@ -115,10 +115,10 @@ function logic(){
         }
 
         for(var particle in particles){
-            if(particles[particle]['x'] > gates[gate]['x'] - 20
-              && particles[particle]['x'] < gates[gate]['x'] + 20
-              && particles[particle]['y'] > gates[gate]['y'] - 20
-              && particles[particle]['y'] < gates[gate]['y'] + 20){
+            if(particles[particle]['x'] > gates[gate]['x']
+              && particles[particle]['x'] < gates[gate]['x'] + gates[gate]['width']
+              && particles[particle]['y'] > gates[gate]['y']
+              && particles[particle]['y'] < gates[gate]['y'] + gates[gate]['height']){
                 particles[particle]['dx'] = gates[gate]['dx'];
                 particles[particle]['dy'] = gates[gate]['dy'];
             }
