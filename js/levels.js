@@ -1,6 +1,27 @@
 function load_level(){
     var level_gates = [
       {
+        'color': '#a1a',
+        'dy': 1,
+        'event': function(){
+          this.interval = Math.ceil(Math.random() * 99);
+
+          if(particles.length >= settings['max-particles']){
+              return;
+          }
+
+          particles.push({
+            'dx': this['dx'],
+            'dy': this['dy'],
+            'x': this['x'] + 20,
+            'y': this['y'] + 20,
+          });
+        },
+        'interval': 10,
+        'x': -20,
+        'y': -300,
+      },
+      {
         'color': '#1a1',
         'dy': 5,
         'x': -20,
@@ -10,8 +31,7 @@ function load_level(){
         'color': '#aa1',
         'dx': 1,
         'dy': 1,
-        'interval': 55,
-        'switch': function(){
+        'event': function(){
             this.color = this.color == '#aa1'
               ? '#1aa'
               : '#aa1';
@@ -19,14 +39,14 @@ function load_level(){
               ? -1
               : 1;
         },
+        'interval': 55,
         'x': -20,
       },
       {
         'color': '#aa1',
         'dx': 1,
         'dy': -1,
-        'interval': 42,
-        'switch': function(){
+        'event': function(){
             this.color = this.color == '#aa1'
               ? '#1aa'
               : '#aa1';
@@ -37,6 +57,7 @@ function load_level(){
               ? -10
               : -1;
         },
+        'interval': 42,
         'x': -120,
         'y': 100,
       },
@@ -52,8 +73,7 @@ function load_level(){
         'color': '#a11',
         'dx': 5,
         'dy': -1,
-        'interval': 23,
-        'switch': function(){
+        'event': function(){
             if(Math.random() > .23){
                 return;
             }
@@ -65,37 +85,12 @@ function load_level(){
               ? -1
               : 5;
         },
+        'interval': 23,
         'x': 80,
         'y': 100,
       },
     ];
     for(var gate in level_gates){
         create_gate(level_gates[gate]);
-    }
-
-    var level_spawners = [
-      {
-        'color': '#a1a',
-        'dy': 1,
-        'spawn': function(){
-          this.interval = Math.ceil(Math.random() * 99);
-
-          if(particles.length >= settings['max-particles']){
-              return;
-          }
-
-          particles.push({
-            'dx': this['dx'],
-            'dy': this['dy'],
-            'x': this['x'] + 20,
-            'y': this['y'] + 20,
-          });
-        },
-        'x': -20,
-        'y': -300,
-      },
-    ];
-    for(var spawner in level_spawners){
-        create_spawner(level_spawners[spawner]);
     }
 }

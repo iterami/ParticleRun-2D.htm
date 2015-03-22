@@ -4,27 +4,12 @@ function create_gate(gate){
       'color': gate['color'] || '#fff',
       'dx': gate['dx'] || 0,
       'dy': gate['dy'] || 0,
+      'event': gate['event'] || function(){},
       'height': gate['height'] || 40,
       'interval': gate['interval'] || 0,
-      'switch': gate['switch'] || function(){},
       'x': gate['x'] || 0,
       'y': gate['y'] || 0,
       'width': gate['width'] || 40,
-    });
-}
-
-function create_spawner(spawner){
-    spawner = spawner || {};
-    spawners.push({
-      'color': spawner['color'] || '#fff',
-      'dx': spawner['dx'] || 0,
-      'dy': spawner['dy'] || 0,
-      'height': spawner['height'] || 40,
-      'interval': spawner['interval'] || 10,
-      'spawn': spawner['spawn'] || function(){},
-      'x': spawner['x'] || 0,
-      'y': spawner['y'] || 0,
-      'width': spawner['width'] || 40,
     });
 }
 
@@ -41,17 +26,6 @@ function draw(){
       x - camera_x,
       y - camera_y
     );
-
-    // Draw spawners.
-    for(var spawner in spawners){
-        buffer.fillStyle = spawners[spawner]['color'];
-        buffer.fillRect(
-          spawners[spawner]['x'],
-          spawners[spawner]['y'],
-          spawners[spawner]['width'],
-          spawners[spawner]['height']
-        );
-    }
 
     // Draw gates.
     for(var gate in gates){
@@ -136,16 +110,10 @@ function logic(){
         }
     }
 
-    for(var spawner in spawners){
-        if(frame_counter % spawners[spawner]['interval'] == 0){
-            spawners[spawner]['spawn']();
-        }
-    }
-
     for(var gate in gates){
         if(gates[gate]['interval'] > 0
           && frame_counter % gates[gate]['interval'] == 0){
-            gates[gate]['switch']();
+            gates[gate]['event']();
         }
 
         for(var particle in particles){
@@ -246,7 +214,6 @@ function setmode(newmode, newgame){
 
     gates = [];
     particles = [];
-    spawners = [];
 
     mode = newmode;
 
@@ -328,7 +295,6 @@ var settings = {
     ? 'H'
     : window.localStorage.getItem('ParticleRun-2D.htm-restart-key'),
 };
-var spawners = [];
 var x = 0;
 var width = 0;
 var y = 0;
