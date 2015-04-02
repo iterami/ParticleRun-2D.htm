@@ -279,21 +279,11 @@ var key_up = false;
 var mode = 0;
 var particles = [];
 var settings = {
-  'audio-volume': window.localStorage.getItem('ParticleRun-2D.htm-audio-volume') === null
-    ? 1
-    : parseFloat(window.localStorage.getItem('ParticleRun-2D.htm-audio-volume')),
-  'movement-keys': window.localStorage.getItem('ParticleRun-2D.htm-movement-keys') === null
-    ? 'WASD'
-    : window.localStorage.getItem('ParticleRun-2D.htm-movement-keys'),
-  'max-particles': window.localStorage.getItem('ParticleRun-2D.htm-max-particles') === null
-    ? 1000
-    : parseInt(window.localStorage.getItem('ParticleRun-2D.htm-max-particles')),
-  'ms-per-frame': window.localStorage.getItem('ParticleRun-2D.htm-ms-per-frame') === null
-    ? 25
-    : parseInt(window.localStorage.getItem('ParticleRun-2D.htm-ms-per-frame')),
-  'restart-key': window.localStorage.getItem('ParticleRun-2D.htm-restart-key') === null
-    ? 'H'
-    : window.localStorage.getItem('ParticleRun-2D.htm-restart-key'),
+  'audio-volume': parseFloat(window.localStorage.getItem('ParticleRun-2D.htm-audio-volume')) || 1,
+  'movement-keys': window.localStorage.getItem('ParticleRun-2D.htm-movement-keys') || 'WASD',
+  'max-particles': parseInt(window.localStorage.getItem('ParticleRun-2D.htm-max-particles')) || 1000,
+  'ms-per-frame': parseInt(window.localStorage.getItem('ParticleRun-2D.htm-ms-per-frame')) || 25,
+  'restart-key': window.localStorage.getItem('ParticleRun-2D.htm-restart-key') || 'H',
 };
 var x = 0;
 var width = 0;
