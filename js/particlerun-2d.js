@@ -289,8 +289,6 @@ var x = 0;
 var width = 0;
 var y = 0;
 
-setmode(0, 1);
-
 window.onkeydown = function(e){
     if(mode <= 0){
         return;
@@ -338,6 +336,10 @@ window.onkeyup = function(e){
     }else if(key === settings['movement-keys'][3]){
         key_right = false;
     }
+};
+
+window.onload = function(e){
+    setmode(0, 1);
 };
 
 window.onresize = resize;
