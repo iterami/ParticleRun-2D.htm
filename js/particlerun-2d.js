@@ -249,18 +249,19 @@ function setmode(newmode, newgame){
           settings['ms-per-frame']
         );
 
-    // Main menu mode.
-    }else{
-        buffer = 0;
-        canvas = 0;
-
-        document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><a onclick="setmode(1, 1)">New Run</a></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=4 value='
-          + settings['movement-keys'] + '>Camera ↑←↓→<br><input id=restart-key maxlength=1 value='
-          + settings['restart-key'] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
-          + settings['audio-volume'] + '>Audio<br><input id=max-particles value='
-          + settings['max-particles'] + '>Max Particles<br><input id=ms-per-frame value='
-          + settings['ms-per-frame'] + '>ms/Frame<br><a onclick=reset()>Reset Settings</a></div></div>';
+        return;
     }
+
+    // Main menu mode.
+    buffer = 0;
+    canvas = 0;
+
+    document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><a onclick="setmode(1, true)">New Run</a></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=4 value='
+      + settings['movement-keys'] + '>Camera ↑←↓→<br><input id=restart-key maxlength=1 value='
+      + settings['restart-key'] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
+      + settings['audio-volume'] + '>Audio<br><input id=max-particles value='
+      + settings['max-particles'] + '>Max Particles<br><input id=ms-per-frame value='
+      + settings['ms-per-frame'] + '>ms/Frame<br><a onclick=reset()>Reset Settings</a></div></div>';
 }
 
 var animationFrame = 0;
@@ -298,7 +299,10 @@ window.onkeydown = function(e){
 
     // ESC: return to main menu.
     if(key === 27){
-        setmode(0, 1);
+        setmode(
+          0,
+          true
+        );
         return;
     }
 
@@ -317,7 +321,10 @@ window.onkeydown = function(e){
         key_right = true;
 
     }else if(key === settings['restart-key']){
-        setmode(mode, 0);
+        setmode(
+          mode,
+          false
+        );
     }
 };
 
@@ -339,7 +346,10 @@ window.onkeyup = function(e){
 };
 
 window.onload = function(e){
-    setmode(0, 1);
+    setmode(
+      0,
+      true
+    );
 };
 
 window.onresize = resize;
