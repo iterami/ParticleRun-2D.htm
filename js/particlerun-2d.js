@@ -269,7 +269,6 @@ var buffer = 0;
 var camera_x = 0;
 var camera_y = 0;
 var canvas = 0;
-var frames = 0;
 var gates = [];
 var height = 0;
 var interval = 0;
