@@ -63,6 +63,13 @@ function draw(){
       25
     );
 
+    // Draw number of particles.
+    buffer.fillText(
+      particles.length,
+      5,
+      50
+    );
+
     canvas.clearRect(
       0,
       0,
@@ -106,7 +113,10 @@ function logic(){
 
         if(Math.abs(particles[particle]['x']) > 999
           || Math.abs(particles[particle]['y']) > 999){
-            delete particles[particle];
+            particles.splice(
+              particle,
+              1
+            );
         }
     }
 
