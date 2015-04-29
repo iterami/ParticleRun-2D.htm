@@ -54,7 +54,6 @@ function draw(){
     // Setup text display.
     buffer.fillStyle = '#fff';
     buffer.font = '23pt sans-serif';
-    buffer.textAlign = 'left';
 
     // Draw camera position.
     buffer.fillText(
