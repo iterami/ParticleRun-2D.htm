@@ -8,5 +8,5 @@ ParticleRun-2D.htm
 Action              | Key
 --------------------|----
 Move Camera         | WASD
-Restart             | H
+Reset Camera        | H
 Return to Main Menu | ESC

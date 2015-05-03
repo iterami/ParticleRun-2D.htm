@@ -155,7 +155,7 @@ function reset(){
     document.getElementById('movement-keys').value = 'WASD';
     document.getElementById('max-particles').value = 1000;
     document.getElementById('ms-per-frame').value = 25;
-    document.getElementById('restart-key').value = 'H';
+    document.getElementById('reset-camera-key').value = 'H';
 
     save();
 }
@@ -200,7 +200,7 @@ function save(){
 
     ids = {
       'movement-keys': 'WASD',
-      'restart-key': 'H',
+      'reset-camera-key': 'H',
     };
     for(id in ids){
         if(document.getElementById(id).value === ids[id]){
@@ -266,8 +266,8 @@ function setmode(newmode, newgame){
     canvas = 0;
 
     document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><a onclick="setmode(1, true)">New Run</a></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=4 value='
-      + settings['movement-keys'] + '>Camera ↑←↓→<br><input id=restart-key maxlength=1 value='
-      + settings['restart-key'] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
+      + settings['movement-keys'] + '>Camera ↑←↓→<br><input id=reset-camera-key maxlength=1 value='
+      + settings['reset-camera-key'] + '>Reset Camera</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
       + settings['audio-volume'] + '>Audio<br><input id=max-particles value='
       + settings['max-particles'] + '>Max Particles<br><input id=ms-per-frame value='
       + settings['ms-per-frame'] + '>ms/Frame<br><a onclick=reset()>Reset Settings</a></div></div>';
@@ -292,7 +292,7 @@ var settings = {
   'movement-keys': window.localStorage.getItem('ParticleRun-2D.htm-movement-keys') || 'WASD',
   'max-particles': parseInt(window.localStorage.getItem('ParticleRun-2D.htm-max-particles')) || 1000,
   'ms-per-frame': parseInt(window.localStorage.getItem('ParticleRun-2D.htm-ms-per-frame')) || 25,
-  'restart-key': window.localStorage.getItem('ParticleRun-2D.htm-restart-key') || 'H',
+  'reset-camera-key': window.localStorage.getItem('ParticleRun-2D.htm-reset-camera-key') || 'H',
 };
 var x = 0;
 var width = 0;
@@ -328,11 +328,9 @@ window.onkeydown = function(e){
     }else if(key === settings['movement-keys'][3]){
         key_right = true;
 
-    }else if(key === settings['restart-key']){
-        setmode(
-          mode,
-          false
-        );
+    }else if(key === settings['reset-camera-key']){
+        camera_x = 0;
+        camera_y = 0;
     }
 };
 
