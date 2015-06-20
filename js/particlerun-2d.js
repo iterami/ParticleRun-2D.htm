@@ -288,7 +288,9 @@ var key_up = false;
 var mode = 0;
 var particles = [];
 var settings = {
-  'audio-volume': parseFloat(window.localStorage.getItem('ParticleRun-2D.htm-audio-volume')) || 1,
+  'audio-volume': window.localStorage.getItem('ParticleRun-2D.htm-audio-volume') != null
+    ? parseFloat(window.localStorage.getItem('ParticleRun-2D.htm-audio-volume'))
+    : 1,
   'movement-keys': window.localStorage.getItem('ParticleRun-2D.htm-movement-keys') || 'WASD',
   'max-particles': parseInt(window.localStorage.getItem('ParticleRun-2D.htm-max-particles')) || 1000,
   'ms-per-frame': parseInt(window.localStorage.getItem('ParticleRun-2D.htm-ms-per-frame')) || 25,
