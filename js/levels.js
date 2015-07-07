@@ -1,3 +1,5 @@
+'use strict';
+
 function load_level(){
     var level_gates = [
       {

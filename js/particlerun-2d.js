@@ -1,3 +1,5 @@
+'use strict';
+
 function create_gate(gate){
     gate = gate || {};
     gates.push({
@@ -278,6 +280,7 @@ var buffer = 0;
 var camera_x = 0;
 var camera_y = 0;
 var canvas = 0;
+var frame_counter = 0;
 var gates = [];
 var height = 0;
 var interval = 0;
