@@ -34,10 +34,10 @@ function load_level(){
         'dx': 1,
         'dy': 1,
         'event': function(){
-            this.color = this.color == '#aa1'
+            this.color = this.color === '#aa1'
               ? '#1aa'
               : '#aa1';
-            this.dx = this.dx == 1
+            this.dx = this.dx === 1
               ? -1
               : 1;
         },
@@ -49,13 +49,13 @@ function load_level(){
         'dx': 1,
         'dy': -1,
         'event': function(){
-            this.color = this.color == '#aa1'
+            this.color = this.color === '#aa1'
               ? '#1aa'
               : '#aa1';
-            this.dx = this.dx == 0
+            this.dx = this.dx === 0
               ? 1
               : 0;
-            this.dy = this.dy == -1
+            this.dy = this.dy === -1
               ? -10
               : -1;
         },
@@ -80,10 +80,10 @@ function load_level(){
                 return;
             }
 
-            this.color = this.color == '#a11'
+            this.color = this.color === '#a11'
               ? '#1a1'
               : '#a11';
-            this.dx = this.dx == 5
+            this.dx = this.dx === 5
               ? -1
               : 5;
         },

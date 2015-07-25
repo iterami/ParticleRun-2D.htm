@@ -123,7 +123,7 @@ function logic(){
 
     for(var gate in gates){
         if(gates[gate]['interval'] > 0
-          && frame_counter % gates[gate]['interval'] == 0){
+          && frame_counter % gates[gate]['interval'] === 0){
             gates[gate]['event']();
         }
 
