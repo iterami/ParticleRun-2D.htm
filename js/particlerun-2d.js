@@ -244,7 +244,8 @@ function setmode(newmode, newgame){
 
         // If it's a newgame from the main menu, setup canvas and buffers.
         if(newgame){
-            document.getElementById('page').innerHTML = '<canvas id=canvas></canvas><canvas id=buffer></canvas>';
+            document.getElementById('page').innerHTML =
+              '<canvas id=canvas></canvas><canvas id=buffer></canvas>';
 
             var contextAttributes = {
               'alpha': false,
