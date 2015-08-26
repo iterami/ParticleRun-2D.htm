@@ -244,7 +244,7 @@ function setmode(newmode, newgame){
 
         // If it's a newgame from the main menu, setup canvas and buffers.
         if(newgame){
-            document.getElementById('page').innerHTML =
+            document.body.innerHTML =
               '<canvas id=canvas></canvas><canvas id=buffer></canvas>';
 
             var contextAttributes = {
@@ -277,7 +277,7 @@ function setmode(newmode, newgame){
     buffer = 0;
     canvas = 0;
 
-    document.getElementById('page').innerHTML = '<div><div><a onclick="setmode(1, true)">New Run</a></div></div><div class=right><div><input disabled value=ESC>Main Menu<br><input id=movement-keys maxlength=4 value='
+    document.body.innerHTML = '<div><div><a onclick="setmode(1, true)">New Run</a></div></div><div class=right><div><input disabled value=ESC>Main Menu<br><input id=movement-keys maxlength=4 value='
       + settings['movement-keys'] + '>Camera ↑←↓→<br><input id=reset-camera-key maxlength=1 value='
       + settings['reset-camera-key'] + '>Reset Camera</div><hr><div><input id=audio-volume max=1 min=0 step=.01 type=range value='
       + settings['audio-volume'] + '>Audio<br><input id=max-particles value='
