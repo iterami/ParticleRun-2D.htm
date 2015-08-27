@@ -53,10 +53,7 @@ function draw(){
 
     buffer.restore();
 
-    // Setup text display.
     buffer.fillStyle = '#fff';
-    buffer.font = '23pt sans-serif';
-
     // Draw camera position.
     buffer.fillText(
       camera_x + 'x ' + camera_y + 'y',
@@ -176,6 +173,8 @@ function resize(){
     document.getElementById('buffer').width = width;
     document.getElementById('canvas').width = width;
     x = width / 2;
+
+    buffer.font = '23pt sans-serif';
 }
 
 // Save settings into window.localStorage if they differ from default.
