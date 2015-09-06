@@ -5,8 +5,8 @@ ParticleRun-2D.htm
 
 ---
 
-Action              | Key
---------------------|----
-Move Camera         | WASD
+Action              | Default Key
+--------------------|-----------------
+Move Camera         | WASD, Mouse Drag
 Reset Camera        | H
 Return to Main Menu | ESC
