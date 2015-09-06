@@ -1,18 +1,20 @@
 'use strict';
 
-function create_gate(gate){
-    gate = gate || {};
-    gates.push({
-      'color': gate['color'] || '#fff',
-      'dx': gate['dx'] || 0,
-      'dy': gate['dy'] || 0,
-      'event': gate['event'] || function(){},
-      'height': gate['height'] || 40,
-      'interval': gate['interval'] || 0,
-      'x': gate['x'] || 0,
-      'y': gate['y'] || 0,
-      'width': gate['width'] || 40,
-    });
+function create_gates(new_gates){
+    new_gates = new_gates || [{}];
+    for(var gate in new_gates){
+        gates.push({
+          'color': new_gates[gate]['color'] || '#fff',
+          'dx': new_gates[gate]['dx'] || 0,
+          'dy': new_gates[gate]['dy'] || 0,
+          'event': new_gates[gate]['event'] || function(){},
+          'height': new_gates[gate]['height'] || 40,
+          'interval': new_gates[gate]['interval'] || 0,
+          'x': new_gates[gate]['x'] || 0,
+          'y': new_gates[gate]['y'] || 0,
+          'width': new_gates[gate]['width'] || 40,
+        });
+    }
 }
 
 function draw(){

@@ -92,7 +92,6 @@ function load_level(){
         'y': 100,
       },
     ];
-    for(var gate in level_gates){
-        create_gate(level_gates[gate]);
-    }
+
+    create_gates(level_gates);
 }
