@@ -308,7 +308,7 @@ var key_up = false;
 var mode = 0;
 var particles = [];
 var settings = {
-  'audio-volume': window.localStorage.getItem('ParticleRun-2D.htm-audio-volume') != null
+  'audio-volume': window.localStorage.getItem('ParticleRun-2D.htm-audio-volume') !== null
     ? parseFloat(window.localStorage.getItem('ParticleRun-2D.htm-audio-volume'))
     : 1,
   'movement-keys': window.localStorage.getItem('ParticleRun-2D.htm-movement-keys') || 'WASD',
