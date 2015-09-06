@@ -63,9 +63,12 @@ function draw(){
       25
     );
 
-    // Draw number of particles.
+    // Draw number of particles
+    //   and max-particles.
     buffer.fillText(
-      particles.length,
+      particles.length
+        + ' / '
+        + settings['max-particles'],
       5,
       50
     );
