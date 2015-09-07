@@ -15,8 +15,8 @@ function load_level(){
           particles.push({
             'dx': this['dx'],
             'dy': this['dy'],
-            'x': this['x'] + 20,
-            'y': this['y'] + 20,
+            'x': this['x'] + Math.floor(Math.random() * this['width']) - 2,
+            'y': this['y'] + Math.floor(Math.random() * this['width']) - 2,
           });
         },
         'interval': 10,
