@@ -107,6 +107,29 @@ function load_level(id){
             'x': 80,
             'y': 100,
           },
+          {
+            'color': '#a11',
+            'dx': -3,
+            'dy': -5,
+            'event': function(){
+                if(Math.random() > .23){
+                    return;
+                }
+
+                this.color = this.dx === -3
+                  ? '#a11'
+                  : '#11a';
+                this.dx = this.dx === -3
+                  ? false
+                  : -3;
+                this.dy = this.dy === -5
+                  ? false
+                  : -5;
+            },
+            'interval': 23,
+            'x': 130,
+            'y': 80,
+          },
         ];
     }
 
