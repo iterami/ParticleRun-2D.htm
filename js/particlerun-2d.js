@@ -13,8 +13,8 @@ function create_gates(new_gates){
           'event': new_gates[gate]['event'] || function(){},
           'height': new_gates[gate]['height'] || 40,
           'interval': new_gates[gate]['interval'] || 0,
-          'x': new_gates[gate]['x'] || 0,
-          'y': new_gates[gate]['y'] || 0,
+          'x': x + new_gates[gate]['x'] || x,
+          'y': y + new_gates[gate]['y'] || y,
           'width': new_gates[gate]['width'] || 40,
         });
     }
@@ -30,8 +30,8 @@ function draw(){
 
     buffer.save();
     buffer.translate(
-      x - camera_x,
-      y - camera_y
+      -camera_x,
+      -camera_y
     );
 
     // Draw gates.
