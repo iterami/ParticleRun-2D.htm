@@ -1,6 +1,12 @@
 'use strict';
 
 function load_level(){
+    boundaries = {
+      'bottom': 999,
+      'left': -999,
+      'right': 999,
+      'top': -999,
+    };
     var level_gates = [
       {
         'color': '#a1a',

@@ -117,8 +117,10 @@ function logic(){
         particles[particle]['x'] += particles[particle]['dx'];
         particles[particle]['y'] += particles[particle]['dy'];
 
-        if(Math.abs(particles[particle]['x']) > 999
-          || Math.abs(particles[particle]['y']) > 999){
+        if(particles[particle]['x'] > boundaries['right']
+          || particles[particle]['x'] < boundaries['left']
+          || particles[particle]['y'] > boundaries['bottom']
+          || particles[particle]['y'] < boundaries['top']){
             particles.splice(
               particle,
               1
@@ -301,6 +303,7 @@ function setmode(newmode, newgame){
 }
 
 var animationFrame = 0;
+var boundaries = {};
 var buffer = 0;
 var camera_x = 0;
 var camera_y = 0;
