@@ -14,18 +14,18 @@ function load_level(id){
             'color': '#a1a',
             'dy': 1,
             'event': function(){
-              this.interval = Math.ceil(Math.random() * 99);
+                this.interval = Math.ceil(Math.random() * 99);
 
-              if(particles.length >= settings['max-particles']){
-                  return;
-              }
+                if(particles.length >= settings['max-particles']){
+                    return;
+                }
 
-              particles.push({
-                'dx': this['dx'],
-                'dy': this['dy'],
-                'x': this['x'] + Math.floor(Math.random() * this['width']) - 2,
-                'y': this['y'] + Math.floor(Math.random() * this['width']) - 2,
-              });
+                particles.push({
+                  'dx': this['dx'],
+                  'dy': this['dy'],
+                  'x': this['x'] + Math.floor(Math.random() * this['width']) - 2,
+                  'y': this['y'] + Math.floor(Math.random() * this['width']) - 2,
+                });
             },
             'interval': 10,
             'x': -20,
