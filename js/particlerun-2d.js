@@ -8,8 +8,8 @@ function create_gates(new_gates){
           'destroy': new_gates[gate]['destroy'] !== void 0
             ? new_gates[gate]['destroy']
             : false,
-          'dx': new_gates[gate]['dx'] || 0,
-          'dy': new_gates[gate]['dy'] || 0,
+          'dx': new_gates[gate]['dx'] || false,
+          'dy': new_gates[gate]['dy'] || false,
           'event': new_gates[gate]['event'] || function(){},
           'height': new_gates[gate]['height'] || 40,
           'interval': new_gates[gate]['interval'] || 0,
@@ -147,8 +147,12 @@ function logic(){
                     continue;
                 }
 
-                particles[particle]['dx'] = gates[gate]['dx'];
-                particles[particle]['dy'] = gates[gate]['dy'];
+                if(gates[gate]['dx'] !== false){
+                    particles[particle]['dx'] = gates[gate]['dx'];
+                }
+                if(gates[gate]['dy'] !== false){
+                    particles[particle]['dy'] = gates[gate]['dy'];
+                }
             }
         }
     }

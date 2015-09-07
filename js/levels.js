@@ -73,6 +73,13 @@ function load_level(id){
             'y': 100,
           },
           {
+            'color': '#222',
+            'height': 20,
+            'x': -140,
+            'y': -150,
+            'width': 80,
+          },
+          {
             'color': '#aaa',
             'dy': 10,
             'height': 20,
