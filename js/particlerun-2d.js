@@ -5,6 +5,9 @@ function create_gates(new_gates){
     for(var gate in new_gates){
         gates.push({
           'color': new_gates[gate]['color'] || '#fff',
+          'destroy': new_gates[gate]['destroy'] !== void 0
+            ? new_gates[gate]['destroy']
+            : false,
           'dx': new_gates[gate]['dx'] || 0,
           'dy': new_gates[gate]['dy'] || 0,
           'event': new_gates[gate]['event'] || function(){},
@@ -134,6 +137,14 @@ function logic(){
               && particles[particle]['x'] < gates[gate]['x'] + gates[gate]['width']
               && particles[particle]['y'] > gates[gate]['y']
               && particles[particle]['y'] < gates[gate]['y'] + gates[gate]['height']){
+                if(gates[gate]['destroy']){
+                    particles.splice(
+                      particle,
+                      1
+                    );
+                    continue;
+                }
+
                 particles[particle]['dx'] = gates[gate]['dx'];
                 particles[particle]['dy'] = gates[gate]['dy'];
             }
