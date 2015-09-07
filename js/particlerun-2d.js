@@ -93,19 +93,19 @@ function draw(){
 
 function logic(){
     if(key_left){
-        camera_x -= 5;
+        camera_x -= settings['scroll-speed'];
     }
 
     if(key_right){
-        camera_x += 5;
+        camera_x += settings['scroll-speed'];
     }
 
     if(key_down){
-        camera_y += 5;
+        camera_y += settings['scroll-speed'];
     }
 
     if(key_up){
-        camera_y -= 5;
+        camera_y -= settings['scroll-speed'];
     }
 
     frame_counter += 1;
@@ -173,6 +173,7 @@ function reset(){
     document.getElementById('max-particles').value = 1000;
     document.getElementById('ms-per-frame').value = 25;
     document.getElementById('reset-camera-key').value = 'H';
+    document.getElementById('scroll-speed').value = 5;
 
     save();
 }
@@ -201,6 +202,7 @@ function save(){
       'audio-volume': 1,
       'max-particles': 1000,
       'ms-per-frame': 25,
+      'scroll-speed': 5,
     };
     for(var id in ids){
         if(isNaN(document.getElementById(id).value)
@@ -299,7 +301,8 @@ function setmode(newmode, newgame){
       + settings['reset-camera-key'] + '>Reset Camera</div><hr><div><input id=audio-volume max=1 min=0 step=.01 type=range value='
       + settings['audio-volume'] + '>Audio<br><input id=max-particles value='
       + settings['max-particles'] + '>Max Particles<br><input id=ms-per-frame value='
-      + settings['ms-per-frame'] + '>ms/Frame<br><a onclick=reset()>Reset Settings</a></div></div>';
+      + settings['ms-per-frame'] + '>ms/Frame<br><input id=scroll-speed value='
+      + settings['scroll-speed'] + '>Scroll Speed<br><a onclick=reset()>Reset Settings</a></div></div>';
 }
 
 var animationFrame = 0;
@@ -329,6 +332,7 @@ var settings = {
   'max-particles': parseInt(window.localStorage.getItem('ParticleRun-2D.htm-max-particles')) || 1000,
   'ms-per-frame': parseInt(window.localStorage.getItem('ParticleRun-2D.htm-ms-per-frame')) || 25,
   'reset-camera-key': window.localStorage.getItem('ParticleRun-2D.htm-reset-camera-key') || 'H',
+  'scroll-speed': window.localStorage.getItem('ParticleRun-2D.htm-scroll-speed') || 5,
 };
 var x = 0;
 var width = 0;
