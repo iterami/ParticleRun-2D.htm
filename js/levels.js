@@ -51,7 +51,8 @@ function load_level(id){
                   : 1;
             },
             'interval': 55,
-            'x': -20,
+            'x': -30,
+            'width': 60,
           },
           {
             'color': '#aa1',
