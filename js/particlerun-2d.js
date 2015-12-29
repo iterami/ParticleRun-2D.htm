@@ -172,12 +172,17 @@ function reset(){
         return;
     }
 
-    document.getElementById('audio-volume').value = 1;
-    document.getElementById('movement-keys').value = 'WASD';
-    document.getElementById('max-particles').value = 1000;
-    document.getElementById('ms-per-frame').value = 25;
-    document.getElementById('reset-camera-key').value = 'H';
-    document.getElementById('scroll-speed').value = 5;
+    var ids = {
+      'audio-volume': 1,
+      'movement-keys': 'WASD',
+      'max-particles': 1000,
+      'ms-per-frame': 25,
+      'reset-camera-key': 'H',
+      'scroll-speed': 5,
+    };
+    for(var id in ids){
+        document.getElementById(id).value = ids[id];
+    }
 
     save();
 }
