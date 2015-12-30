@@ -214,11 +214,10 @@ function save(){
       'scroll-speed': 5,
     };
     for(var id in ids){
-        var value = document.getElementById(id).value;
-        settings[id] = parseFloat(value);
+        settings[id] = parseFloat(document.getElementById(id).value);
 
-        if(value == ids[id]
-          || isNaN(value)){
+        if(settings[id] == ids[id]
+          || isNaN(settings[id])){
             window.localStorage.removeItem('ParticleRun-2D.htm-' + id);
 
         }else{
@@ -234,10 +233,9 @@ function save(){
       'reset-camera-key': 'H',
     };
     for(id in ids){
-        value = document.getElementById(id).value;
-        settings[id] = value;
+        settings[id] = document.getElementById(id).value;
 
-        if(value === ids[id]){
+        if(settings[id] === ids[id]){
             window.localStorage.removeItem('ParticleRun-2D.htm-' + id);
 
         }else{
