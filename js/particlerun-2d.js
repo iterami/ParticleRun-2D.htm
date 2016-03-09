@@ -343,8 +343,8 @@ var settings = {
   'reset-camera-key': window.localStorage.getItem('ParticleRun-2D.htm-reset-camera-key') || 'H',
   'scroll-speed': window.localStorage.getItem('ParticleRun-2D.htm-scroll-speed') || 5,
 };
-var x = 0;
 var width = 0;
+var x = 0;
 var y = 0;
 
 window.onkeydown = function(e){
