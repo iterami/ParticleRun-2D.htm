@@ -329,8 +329,8 @@ var settings = {
     ? parseFloat(window.localStorage.getItem('ParticleRun-2D.htm-audio-volume'))
     : 1,
   'movement-keys': window.localStorage.getItem('ParticleRun-2D.htm-movement-keys') || 'WASD',
-  'max-particles': parseInt(window.localStorage.getItem('ParticleRun-2D.htm-max-particles')) || 1000,
-  'ms-per-frame': parseInt(window.localStorage.getItem('ParticleRun-2D.htm-ms-per-frame')) || 25,
+  'max-particles': parseInt(window.localStorage.getItem('ParticleRun-2D.htm-max-particles'), 10) || 1000,
+  'ms-per-frame': parseInt(window.localStorage.getItem('ParticleRun-2D.htm-ms-per-frame'), 10) || 25,
   'reset-camera-key': window.localStorage.getItem('ParticleRun-2D.htm-reset-camera-key') || 'H',
   'scroll-speed': window.localStorage.getItem('ParticleRun-2D.htm-scroll-speed') || 5,
 };
