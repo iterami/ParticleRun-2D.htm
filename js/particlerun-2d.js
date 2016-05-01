@@ -20,14 +20,7 @@ function create_gates(new_gates){
     }
 }
 
-function draw(){
-    buffer.clearRect(
-      0,
-      0,
-      width,
-      height
-    );
-
+function draw_logic(){
     buffer.save();
     buffer.translate(
       -camera_x,
@@ -75,20 +68,6 @@ function draw(){
       5,
       50
     );
-
-    canvas.clearRect(
-      0,
-      0,
-      width,
-      height
-    );
-    canvas.drawImage(
-      document.getElementById('buffer'),
-      0,
-      0
-    );
-
-    animationFrame = window.requestAnimationFrame(draw);
 }
 
 function logic(){
@@ -178,21 +157,7 @@ function reset(){
     save();
 }
 
-function resize(){
-    if(mode <= 0){
-        return;
-    }
-
-    height = window.innerHeight;
-    document.getElementById('buffer').height = height;
-    document.getElementById('canvas').height = height;
-    y = height / 2;
-
-    width = window.innerWidth;
-    document.getElementById('buffer').width = width;
-    document.getElementById('canvas').width = width;
-    x = width / 2;
-
+function resize_logic(){
     buffer.font = '23pt sans-serif';
 }
 
@@ -238,91 +203,46 @@ function save(){
     }
 }
 
-function setmode(newmode, newgame){
-    window.cancelAnimationFrame(animationFrame);
-    window.clearInterval(interval);
-
+function setmode_logic(newgame){
     gates = [];
     particles = [];
 
-    mode = newmode;
+    // Main menu mode.
+    if(mode === 0){
+        document.body.innerHTML = '<div><div><a onclick="setmode(1, true)">Test Level</a></div></div><div class=right><div><input disabled value=ESC>Main Menu<br><input id=movement-keys maxlength=4 value='
+          + settings['movement-keys'] + '>Camera ↑←↓→<br><input id=reset-camera-key maxlength=1 value='
+          + settings['reset-camera-key'] + '>Reset Camera</div><hr><div><input id=audio-volume max=1 min=0 step=0.01 type=range value='
+          + settings['audio-volume'] + '>Audio<br><input id=max-particles value='
+          + settings['max-particles'] + '>Max Particles<br><input id=ms-per-frame value='
+          + settings['ms-per-frame'] + '>ms/Frame<br><input id=scroll-speed value='
+          + settings['scroll-speed'] + '>Scroll Speed<br><a onclick=reset()>Reset Settings</a></div></div>';
 
     // New game mode.
-    if(mode > 0){
-        // If it's a newgame from the main menu, save settings.
+    }else{
         if(newgame){
             save();
         }
 
-        // Reset.
         camera_x = 0;
         camera_y = 0;
         frame_counter = 0;
         key_left = false;
         key_right = false;
-
-        // If it's a newgame from the main menu, setup canvas and buffers.
-        if(newgame){
-            document.body.innerHTML =
-              '<canvas id=canvas></canvas><canvas id=buffer></canvas>';
-
-            var contextAttributes = {
-              'alpha': false,
-            };
-            buffer = document.getElementById('buffer').getContext(
-              '2d',
-              contextAttributes
-            );
-            canvas = document.getElementById('canvas').getContext(
-              '2d',
-              contextAttributes
-            );
-
-            resize();
-        }
-
-        load_level(mode);
-
-        animationFrame = window.requestAnimationFrame(draw);
-        interval = window.setInterval(
-          logic,
-          settings['ms-per-frame']
-        );
-
-        return;
     }
-
-    // Main menu mode.
-    buffer = 0;
-    canvas = 0;
-
-    document.body.innerHTML = '<div><div><a onclick="setmode(1, true)">Test Level</a></div></div><div class=right><div><input disabled value=ESC>Main Menu<br><input id=movement-keys maxlength=4 value='
-      + settings['movement-keys'] + '>Camera ↑←↓→<br><input id=reset-camera-key maxlength=1 value='
-      + settings['reset-camera-key'] + '>Reset Camera</div><hr><div><input id=audio-volume max=1 min=0 step=0.01 type=range value='
-      + settings['audio-volume'] + '>Audio<br><input id=max-particles value='
-      + settings['max-particles'] + '>Max Particles<br><input id=ms-per-frame value='
-      + settings['ms-per-frame'] + '>ms/Frame<br><input id=scroll-speed value='
-      + settings['scroll-speed'] + '>Scroll Speed<br><a onclick=reset()>Reset Settings</a></div></div>';
 }
 
-var animationFrame = 0;
 var boundaries = {};
-var buffer = 0;
 var camera_x = 0;
 var camera_y = 0;
-var canvas = 0;
 var drag = false;
 var drag_x = 0;
 var drag_y = 0;
 var frame_counter = 0;
 var gates = [];
-var height = 0;
-var interval = 0;
 var key_down = false;
 var key_left = false;
 var key_right = false;
 var key_up = false;
-var mode = 0;
 var particles = [];
 var settings = {
   'audio-volume': window.localStorage.getItem('ParticleRun-2D.htm-audio-volume') !== null
@@ -334,9 +254,6 @@ var settings = {
   'reset-camera-key': window.localStorage.getItem('ParticleRun-2D.htm-reset-camera-key') || 'H',
   'scroll-speed': window.localStorage.getItem('ParticleRun-2D.htm-scroll-speed') || 5,
 };
-var width = 0;
-var x = 0;
-var y = 0;
 
 window.onkeydown = function(e){
     if(mode <= 0){
@@ -391,12 +308,7 @@ window.onkeyup = function(e){
     }
 };
 
-window.onload = function(e){
-    setmode(
-      0,
-      true
-    );
-};
+window.onload = init_canvas;
 
 window.onmousedown =
   window.ontouchstart = function(e){
@@ -421,5 +333,3 @@ window.onmouseup =
   window.ontouchend = function(e){
     drag = false;
 };
-
-window.onresize = resize;
