@@ -137,70 +137,8 @@ function logic(){
     }
 }
 
-function reset(){
-    if(!window.confirm('Reset settings?')){
-        return;
-    }
-
-    var ids = {
-      'audio-volume': 1,
-      'movement-keys': 'WASD',
-      'max-particles': 1000,
-      'ms-per-frame': 25,
-      'reset-camera-key': 'H',
-      'scroll-speed': 5,
-    };
-    for(var id in ids){
-        document.getElementById(id).value = ids[id];
-    }
-
-    save();
-}
-
 function resize_logic(){
     buffer.font = '23pt sans-serif';
-}
-
-// Save settings into window.localStorage if they differ from default.
-function save(){
-    var ids = {
-      'audio-volume': 1,
-      'max-particles': 1000,
-      'ms-per-frame': 25,
-      'scroll-speed': 5,
-    };
-    for(var id in ids){
-        settings[id] = parseFloat(document.getElementById(id).value);
-
-        if(settings[id] == ids[id]
-          || isNaN(settings[id])){
-            window.localStorage.removeItem('ParticleRun-2D.htm-' + id);
-
-        }else{
-            window.localStorage.setItem(
-              'ParticleRun-2D.htm-' + id,
-              settings[id]
-            );
-        }
-    }
-
-    ids = {
-      'movement-keys': 'WASD',
-      'reset-camera-key': 'H',
-    };
-    for(id in ids){
-        settings[id] = document.getElementById(id).value;
-
-        if(settings[id] === ids[id]){
-            window.localStorage.removeItem('ParticleRun-2D.htm-' + id);
-
-        }else{
-            window.localStorage.setItem(
-              'ParticleRun-2D.htm-' + id,
-              settings[id]
-            );
-        }
-    }
 }
 
 function setmode_logic(newgame){
@@ -244,16 +182,6 @@ var key_left = false;
 var key_right = false;
 var key_up = false;
 var particles = [];
-var settings = {
-  'audio-volume': window.localStorage.getItem('ParticleRun-2D.htm-audio-volume') !== null
-    ? parseFloat(window.localStorage.getItem('ParticleRun-2D.htm-audio-volume'))
-    : 1,
-  'movement-keys': window.localStorage.getItem('ParticleRun-2D.htm-movement-keys') || 'WASD',
-  'max-particles': parseInt(window.localStorage.getItem('ParticleRun-2D.htm-max-particles'), 10) || 1000,
-  'ms-per-frame': parseInt(window.localStorage.getItem('ParticleRun-2D.htm-ms-per-frame'), 10) || 25,
-  'reset-camera-key': window.localStorage.getItem('ParticleRun-2D.htm-reset-camera-key') || 'H',
-  'scroll-speed': window.localStorage.getItem('ParticleRun-2D.htm-scroll-speed') || 5,
-};
 
 window.onkeydown = function(e){
     if(mode <= 0){
@@ -308,7 +236,20 @@ window.onkeyup = function(e){
     }
 };
 
-window.onload = init_canvas;
+window.onload = function(){
+    init_settings(
+      'ParticleRun-2D.htm-',
+      {
+        'audio-volume': 1,
+        'movement-keys': 'WASD',
+        'max-particles': 1000,
+        'ms-per-frame': 25,
+        'reset-camera-key': 'H',
+        'scroll-speed': 5,
+      }
+    );
+    init_canvas();
+};
 
 window.onmousedown =
   window.ontouchstart = function(e){
