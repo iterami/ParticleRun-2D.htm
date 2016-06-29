@@ -138,7 +138,7 @@ function logic(){
 }
 
 function resize_logic(){
-    buffer.font = '23pt sans-serif';
+    buffer.font = font;
 }
 
 function setmode_logic(newgame){
