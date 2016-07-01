@@ -137,10 +137,6 @@ function logic(){
     }
 }
 
-function resize_logic(){
-    buffer.font = font;
-}
-
 function setmode_logic(newgame){
     gates = [];
     particles = [];
