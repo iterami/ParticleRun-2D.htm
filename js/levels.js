@@ -16,7 +16,7 @@ function load_level(id){
             'event': function(){
                 this.interval = Math.ceil(Math.random() * 99);
 
-                if(particles.length >= settings['max-particles']){
+                if(particles.length >= settings_settings['max-particles']){
                     return;
                 }
 

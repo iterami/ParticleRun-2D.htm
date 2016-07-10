@@ -64,7 +64,7 @@ function draw_logic(){
     buffer.fillText(
       particles.length
         + ' / '
-        + settings['max-particles'],
+        + settings_settings['max-particles'],
       5,
       50
     );
@@ -72,19 +72,19 @@ function draw_logic(){
 
 function logic(){
     if(key_left){
-        camera_x -= settings['scroll-speed'];
+        camera_x -= settings_settings['scroll-speed'];
     }
 
     if(key_right){
-        camera_x += settings['scroll-speed'];
+        camera_x += settings_settings['scroll-speed'];
     }
 
     if(key_down){
-        camera_y += settings['scroll-speed'];
+        camera_y += settings_settings['scroll-speed'];
     }
 
     if(key_up){
-        camera_y -= settings['scroll-speed'];
+        camera_y -= settings_settings['scroll-speed'];
     }
 
     frame_counter += 1;
@@ -151,13 +151,13 @@ function setmode_logic(newgame){
           + '<input id=max-particles>Max Particles<br>'
           + '<input id=ms-per-frame>ms/Frame<br>'
           + '<input id=scroll-speed>Scroll Speed<br>'
-          + '<a onclick=reset()>Reset Settings</a></div></div>';
-        update_settings();
+          + '<a onclick=settings_reset()>Reset Settings</a></div></div>';
+        settings_update();
 
     // New game mode.
     }else{
         if(newgame){
-            save();
+            settings_save();
         }
 
         camera_x = 0;
@@ -200,19 +200,19 @@ window.onkeydown = function(e){
 
     key = String.fromCharCode(key);
 
-    if(key === settings['movement-keys'][0]){
+    if(key === settings_settings['movement-keys'][0]){
         key_up = true;
 
-    }else if(key === settings['movement-keys'][1]){
+    }else if(key === settings_settings['movement-keys'][1]){
         key_left = true;
 
-    }else if(key === settings['movement-keys'][2]){
+    }else if(key === settings_settings['movement-keys'][2]){
         key_down = true;
 
-    }else if(key === settings['movement-keys'][3]){
+    }else if(key === settings_settings['movement-keys'][3]){
         key_right = true;
 
-    }else if(key === settings['reset-camera-key']){
+    }else if(key === settings_settings['reset-camera-key']){
         camera_x = 0;
         camera_y = 0;
     }
@@ -221,22 +221,22 @@ window.onkeydown = function(e){
 window.onkeyup = function(e){
     var key = String.fromCharCode(e.keyCode || e.which);
 
-    if(key === settings['movement-keys'][0]){
+    if(key === settings_settings['movement-keys'][0]){
         key_up = false;
 
-    }else if(key === settings['movement-keys'][1]){
+    }else if(key === settings_settings['movement-keys'][1]){
         key_left = false;
 
-    }else if(key === settings['movement-keys'][2]){
+    }else if(key === settings_settings['movement-keys'][2]){
         key_down = false;
 
-    }else if(key === settings['movement-keys'][3]){
+    }else if(key === settings_settings['movement-keys'][3]){
         key_right = false;
     }
 };
 
 window.onload = function(){
-    init_settings(
+    settings_init(
       'ParticleRun-2D.htm-',
       {
         'audio-volume': 1,
