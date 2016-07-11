@@ -13,24 +13,24 @@ function create_gates(new_gates){
           'event': new_gates[gate]['event'] || function(){},
           'height': new_gates[gate]['height'] || 40,
           'interval': new_gates[gate]['interval'] || 0,
-          'x': x + new_gates[gate]['x'] || x,
-          'y': y + new_gates[gate]['y'] || y,
+          'x': canvas_x + new_gates[gate]['x'] || canvas_x,
+          'y': canvas_y + new_gates[gate]['y'] || canvas_y,
           'width': new_gates[gate]['width'] || 40,
         });
     }
 }
 
 function draw_logic(){
-    buffer.save();
-    buffer.translate(
+    canvas_buffer.save();
+    canvas_buffer.translate(
       -camera_x,
       -camera_y
     );
 
     // Draw gates.
     for(var gate in gates){
-        buffer.fillStyle = gates[gate]['color'];
-        buffer.fillRect(
+        canvas_buffer.fillStyle = gates[gate]['color'];
+        canvas_buffer.fillRect(
           gates[gate]['x'],
           gates[gate]['y'],
           gates[gate]['width'],
@@ -39,9 +39,9 @@ function draw_logic(){
     }
 
     // Draw particles.
-    buffer.fillStyle = '#fff';
+    canvas_buffer.fillStyle = '#fff';
     for(var particle in particles){
-        buffer.fillRect(
+        canvas_buffer.fillRect(
           particles[particle]['x'],
           particles[particle]['y'],
           5,
@@ -49,11 +49,11 @@ function draw_logic(){
         );
     };
 
-    buffer.restore();
+    canvas_buffer.restore();
 
-    buffer.fillStyle = '#fff';
+    canvas_buffer.fillStyle = '#fff';
     // Draw camera position.
-    buffer.fillText(
+    canvas_buffer.fillText(
       camera_x + 'x ' + camera_y + 'y',
       5,
       25
@@ -61,7 +61,7 @@ function draw_logic(){
 
     // Draw number of particles
     //   and max-particles.
-    buffer.fillText(
+    canvas_buffer.fillText(
       particles.length
         + ' / '
         + settings_settings['max-particles'],
@@ -142,8 +142,8 @@ function setmode_logic(newgame){
     particles = [];
 
     // Main menu mode.
-    if(mode === 0){
-        document.body.innerHTML = '<div><div><a onclick="setmode(1, true)">Test Level</a></div></div>'
+    if(canvas_mode === 0){
+        document.body.innerHTML = '<div><div><a onclick="canvas_setmode(1, true)">Test Level</a></div></div>'
           + '<div class=right><div><input disabled value=ESC>Main Menu<br>'
           + '<input id=movement-keys maxlength=4>Camera ↑←↓→<br>'
           + '<input id=reset-camera-key maxlength=1>Reset Camera</div><hr>'
@@ -183,7 +183,7 @@ var key_up = false;
 var particles = [];
 
 window.onkeydown = function(e){
-    if(mode <= 0){
+    if(canvas_mode <= 0){
         return;
     }
 
@@ -191,7 +191,7 @@ window.onkeydown = function(e){
 
     // ESC: return to main menu.
     if(key === 27){
-        setmode(
+        canvas_setmode(
           0,
           true
         );
@@ -247,7 +247,7 @@ window.onload = function(){
         'scroll-speed': 5,
       }
     );
-    init_canvas();
+    canvas_init();
 };
 
 window.onmousedown =
