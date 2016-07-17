@@ -14,7 +14,10 @@ function load_level(id){
             'color': '#a1a',
             'dy': 1,
             'event': function(){
-                this.interval = Math.ceil(Math.random() * 99);
+                this.interval = random_integer(
+                  99,
+                  'ceil'
+                );
 
                 if(particles.length >= settings_settings['max-particles']){
                     return;
@@ -23,8 +26,8 @@ function load_level(id){
                 particles.push({
                   'dx': this['dx'],
                   'dy': this['dy'],
-                  'x': this['x'] + Math.floor(Math.random() * this['width']) - 2,
-                  'y': this['y'] + Math.floor(Math.random() * this['width']) - 2,
+                  'x': this['x'] + random_integer(this['width']) - 2,
+                  'y': this['y'] + random_integer(this['width']) - 2,
                 });
             },
             'interval': 10,
