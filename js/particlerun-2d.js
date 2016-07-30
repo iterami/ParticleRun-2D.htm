@@ -71,6 +71,10 @@ function draw_logic(){
 }
 
 function logic(){
+    if(canvas_menu){
+        return;
+    }
+
     if(key_left){
         camera_x -= settings_settings['scroll-speed'];
     }
@@ -144,7 +148,7 @@ function setmode_logic(newgame){
     // Main menu mode.
     if(canvas_mode === 0){
         document.body.innerHTML = '<div><div><a onclick="canvas_setmode(1, true)">Test Level</a></div></div>'
-          + '<div class=right><div><input disabled value=ESC>Main Menu<br>'
+          + '<div class=right><div><input disabled value=ESC>Menu<br>'
           + '<input id=movement-keys maxlength=4>Camera ↑←↓→<br>'
           + '<input id=reset-camera-key maxlength=1>Reset Camera</div><hr>'
           + '<div><input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br>'
@@ -189,12 +193,9 @@ window.onkeydown = function(e){
 
     var key = e.keyCode || e.which;
 
-    // ESC: return to main menu.
+    // ESC: menu.
     if(key === 27){
-        canvas_setmode(
-          0,
-          true
-        );
+        canvas_menu_toggle();
         return;
     }
 
@@ -215,6 +216,9 @@ window.onkeydown = function(e){
     }else if(key === settings_settings['reset-camera-key']){
         camera_x = 0;
         camera_y = 0;
+
+    }else if(key === 'Q'){
+        canvas_menu_quit();
     }
 };
 
