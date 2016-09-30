@@ -63,7 +63,7 @@ function draw_logic(){
     //   and max-particles.
     canvas_buffer.fillText(
       particles.length
-        + ' / '
+        + '/'
         + settings_settings['max-particles'],
       5,
       50
