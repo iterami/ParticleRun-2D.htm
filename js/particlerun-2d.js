@@ -240,17 +240,17 @@ window.onkeyup = function(e){
 };
 
 window.onload = function(){
-    settings_init(
-      'ParticleRun-2D.htm-',
-      {
+    settings_init({
+      'prefix': 'ParticleRun-2D.htm-',
+      'settings': {
         'audio-volume': 1,
         'movement-keys': 'WASD',
         'max-particles': 1000,
         'ms-per-frame': 25,
         'reset-camera-key': 'H',
         'scroll-speed': 5,
-      }
-    );
+      },
+    });
     canvas_init();
 };
 
