@@ -186,59 +186,6 @@ var key_right = false;
 var key_up = false;
 var particles = [];
 
-window.onkeydown = function(e){
-    if(canvas_mode <= 0){
-        return;
-    }
-
-    var key = e.keyCode || e.which;
-
-    // ESC: menu.
-    if(key === 27){
-        canvas_menu_toggle();
-        return;
-    }
-
-    key = String.fromCharCode(key);
-
-    if(key === settings_settings['movement-keys'][0]){
-        key_up = true;
-
-    }else if(key === settings_settings['movement-keys'][1]){
-        key_left = true;
-
-    }else if(key === settings_settings['movement-keys'][2]){
-        key_down = true;
-
-    }else if(key === settings_settings['movement-keys'][3]){
-        key_right = true;
-
-    }else if(key === settings_settings['reset-camera-key']){
-        camera_x = 0;
-        camera_y = 0;
-
-    }else if(key === 'Q'){
-        canvas_menu_quit();
-    }
-};
-
-window.onkeyup = function(e){
-    var key = String.fromCharCode(e.keyCode || e.which);
-
-    if(key === settings_settings['movement-keys'][0]){
-        key_up = false;
-
-    }else if(key === settings_settings['movement-keys'][1]){
-        key_left = false;
-
-    }else if(key === settings_settings['movement-keys'][2]){
-        key_down = false;
-
-    }else if(key === settings_settings['movement-keys'][3]){
-        key_right = false;
-    }
-};
-
 window.onload = function(){
     settings_init({
       'prefix': 'ParticleRun-2D.htm-',
@@ -252,28 +199,81 @@ window.onload = function(){
       },
     });
     canvas_init();
-};
 
-window.onmousedown =
-  window.ontouchstart = function(e){
-    drag = true;
-    drag_x = e.pageX;
-    drag_y = e.pageY;
-};
+    window.onkeydown = function(e){
+        if(canvas_mode <= 0){
+            return;
+        }
 
-window.onmousemove =
-  window.ontouchmove = function(e){
-    if(!drag){
-        return;
-    }
+        var key = e.keyCode || e.which;
 
-    camera_x += drag_x - e.pageX;
-    camera_y += drag_y - e.pageY;
-    drag_x = e.pageX;
-    drag_y = e.pageY;
-};
+        // ESC: menu.
+        if(key === 27){
+            canvas_menu_toggle();
+            return;
+        }
 
-window.onmouseup =
-  window.ontouchend = function(e){
-    drag = false;
+        key = String.fromCharCode(key);
+
+        if(key === settings_settings['movement-keys'][0]){
+            key_up = true;
+
+        }else if(key === settings_settings['movement-keys'][1]){
+            key_left = true;
+
+        }else if(key === settings_settings['movement-keys'][2]){
+            key_down = true;
+
+        }else if(key === settings_settings['movement-keys'][3]){
+            key_right = true;
+
+        }else if(key === settings_settings['reset-camera-key']){
+            camera_x = 0;
+            camera_y = 0;
+
+        }else if(key === 'Q'){
+            canvas_menu_quit();
+        }
+    };
+
+    window.onkeyup = function(e){
+        var key = String.fromCharCode(e.keyCode || e.which);
+
+        if(key === settings_settings['movement-keys'][0]){
+            key_up = false;
+
+        }else if(key === settings_settings['movement-keys'][1]){
+            key_left = false;
+
+        }else if(key === settings_settings['movement-keys'][2]){
+            key_down = false;
+
+        }else if(key === settings_settings['movement-keys'][3]){
+            key_right = false;
+        }
+    };
+
+    window.onmousedown =
+      window.ontouchstart = function(e){
+        drag = true;
+        drag_x = e.pageX;
+        drag_y = e.pageY;
+    };
+
+    window.onmousemove =
+      window.ontouchmove = function(e){
+        if(!drag){
+            return;
+        }
+
+        camera_x += drag_x - e.pageX;
+        camera_y += drag_y - e.pageY;
+        drag_x = e.pageX;
+        drag_y = e.pageY;
+    };
+
+    window.onmouseup =
+      window.ontouchend = function(e){
+        drag = false;
+    };
 };
