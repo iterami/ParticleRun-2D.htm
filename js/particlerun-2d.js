@@ -64,7 +64,7 @@ function draw_logic(){
     canvas_buffer.fillText(
       particles.length
         + '/'
-        + settings_settings['max-particles'],
+        + storage_data['max-particles'],
       5,
       50
     );
@@ -76,19 +76,19 @@ function logic(){
     }
 
     if(key_left){
-        camera_x -= settings_settings['scroll-speed'];
+        camera_x -= storage_data['scroll-speed'];
     }
 
     if(key_right){
-        camera_x += settings_settings['scroll-speed'];
+        camera_x += storage_data['scroll-speed'];
     }
 
     if(key_down){
-        camera_y += settings_settings['scroll-speed'];
+        camera_y += storage_data['scroll-speed'];
     }
 
     if(key_up){
-        camera_y -= settings_settings['scroll-speed'];
+        camera_y -= storage_data['scroll-speed'];
     }
 
     frame_counter += 1;
@@ -155,13 +155,13 @@ function setmode_logic(newgame){
           + '<input id=max-particles>Max Particles<br>'
           + '<input id=ms-per-frame>ms/Frame<br>'
           + '<input id=scroll-speed>Scroll Speed<br>'
-          + '<a onclick=settings_reset()>Reset Settings</a></div></div>';
-        settings_update();
+          + '<a onclick=storage_reset()>Reset Settings</a></div></div>';
+        storage_update();
 
     // New game mode.
     }else{
         if(newgame){
-            settings_save();
+            storage_save();
         }
 
         camera_x = 0;
@@ -187,9 +187,8 @@ var key_up = false;
 var particles = [];
 
 window.onload = function(){
-    settings_init({
-      'prefix': 'ParticleRun-2D.htm-',
-      'settings': {
+    storage_init({
+      'data': {
         'audio-volume': 1,
         'movement-keys': 'WASD',
         'max-particles': 1000,
@@ -197,6 +196,7 @@ window.onload = function(){
         'reset-camera-key': 'H',
         'scroll-speed': 5,
       },
+      'prefix': 'ParticleRun-2D.htm-',
     });
     canvas_init();
 
@@ -215,19 +215,19 @@ window.onload = function(){
 
         key = String.fromCharCode(key);
 
-        if(key === settings_settings['movement-keys'][0]){
+        if(key === storage_data['movement-keys'][0]){
             key_up = true;
 
-        }else if(key === settings_settings['movement-keys'][1]){
+        }else if(key === storage_data['movement-keys'][1]){
             key_left = true;
 
-        }else if(key === settings_settings['movement-keys'][2]){
+        }else if(key === storage_data['movement-keys'][2]){
             key_down = true;
 
-        }else if(key === settings_settings['movement-keys'][3]){
+        }else if(key === storage_data['movement-keys'][3]){
             key_right = true;
 
-        }else if(key === settings_settings['reset-camera-key']){
+        }else if(key === storage_data['reset-camera-key']){
             camera_x = 0;
             camera_y = 0;
 
@@ -239,16 +239,16 @@ window.onload = function(){
     window.onkeyup = function(e){
         var key = String.fromCharCode(e.keyCode || e.which);
 
-        if(key === settings_settings['movement-keys'][0]){
+        if(key === storage_data['movement-keys'][0]){
             key_up = false;
 
-        }else if(key === settings_settings['movement-keys'][1]){
+        }else if(key === storage_data['movement-keys'][1]){
             key_left = false;
 
-        }else if(key === settings_settings['movement-keys'][2]){
+        }else if(key === storage_data['movement-keys'][2]){
             key_down = false;
 
-        }else if(key === settings_settings['movement-keys'][3]){
+        }else if(key === storage_data['movement-keys'][3]){
             key_right = false;
         }
     };

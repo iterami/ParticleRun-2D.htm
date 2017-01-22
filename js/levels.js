@@ -19,7 +19,7 @@ function load_level(id){
                   'todo': 'ceil',
                 });
 
-                if(particles.length >= settings_settings['max-particles']){
+                if(particles.length >= storage_data['max-particles']){
                     return;
                 }
 
