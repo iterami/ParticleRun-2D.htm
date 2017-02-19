@@ -2,10 +2,10 @@
 
 function load_level(id){
     boundaries = {
-      'bottom': 999,
-      'left': -999,
-      'right': 999,
-      'top': -999,
+      'height': 1998,
+      'width': 1998,
+      'x': -999,
+      'y': -999
     };
 
     if(id === 1){
@@ -19,20 +19,18 @@ function load_level(id){
                   'todo': 'ceil',
                 });
 
-                if(particles.length >= storage_data['max-particles']){
-                    return;
-                }
-
-                particles.push({
-                  'dx': this['dx'],
-                  'dy': this['dy'],
-                  'x': this['x'] + random_integer({
-                    'max': this['width'],
-                  }) - 2,
-                  'y': this['y'] + random_integer({
-                    'max': this['width'],
-                  }) - 2,
-                });
+                create_particles([
+                  {
+                    'dx': this['dx'],
+                    'dy': this['dy'],
+                    'x': this['x'] + random_integer({
+                      'max': this['width'],
+                    }) - 2,
+                    'y': this['y'] + random_integer({
+                      'max': this['width'],
+                    }) - 2,
+                  },
+                ]);
             },
             'interval': 10,
             'x': -20,

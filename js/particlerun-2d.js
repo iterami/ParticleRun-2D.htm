@@ -20,6 +20,24 @@ function create_gates(new_gates){
     }
 }
 
+function create_particles(new_particles){
+    if(particles.length >= storage_data['max-particles']){
+        return;
+    }
+
+    new_particles = new_particles || [{}];
+    for(var particle in new_particles){
+        particles.push({
+          'dx': new_particles[particle]['dx'] || 0,
+          'dy': new_particles[particle]['dy'] || 0,
+          'height': new_particles[particle]['height'] || storage_data['particle-height'],
+          'width': new_particles[particle]['width'] || storage_data['particle-width'],
+          'x': new_particles[particle]['x'] || 0,
+          'y': new_particles[particle]['y'] || 0,
+        });
+    }
+}
+
 function draw_logic(){
     canvas_buffer.save();
     canvas_buffer.translate(
@@ -44,8 +62,8 @@ function draw_logic(){
         canvas_buffer.fillRect(
           particles[particle]['x'],
           particles[particle]['y'],
-          5,
-          5
+          particles[particle]['width'],
+          particles[particle]['height']
         );
     };
 
@@ -100,10 +118,16 @@ function logic(){
         particles[particle]['x'] += particles[particle]['dx'];
         particles[particle]['y'] += particles[particle]['dy'];
 
-        if(particles[particle]['x'] > boundaries['right']
-          || particles[particle]['x'] < boundaries['left']
-          || particles[particle]['y'] > boundaries['bottom']
-          || particles[particle]['y'] < boundaries['top']){
+        if(!math_rectangle_overlap({
+          'h0': particles[particle]['height'],
+          'h1': boundaries['height'],
+          'w0': particles[particle]['width'],
+          'w1': boundaries['width'],
+          'x0': particles[particle]['x'],
+          'x1': boundaries['x'],
+          'y0': particles[particle]['x'],
+          'y1': boundaries['y'],
+        })){
             particles.splice(
               particle,
               1
@@ -118,10 +142,16 @@ function logic(){
         }
 
         for(var particle in particles){
-            if(particles[particle]['x'] > gates[gate]['x']
-              && particles[particle]['x'] < gates[gate]['x'] + gates[gate]['width']
-              && particles[particle]['y'] > gates[gate]['y']
-              && particles[particle]['y'] < gates[gate]['y'] + gates[gate]['height']){
+            if(math_rectangle_overlap({
+              'h0': particles[particle]['height'],
+              'h1': gates[gate]['height'],
+              'w0': particles[particle]['width'],
+              'w1': gates[gate]['width'],
+              'x0': particles[particle]['x'],
+              'x1': gates[gate]['x'],
+              'y0': particles[particle]['y'],
+              'y1': gates[gate]['y'],
+            })){
                 if(gates[gate]['destroy']){
                     particles.splice(
                       particle,
@@ -154,6 +184,8 @@ function setmode_logic(newgame){
           + '<div><input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br>'
           + '<input id=max-particles>Max Particles<br>'
           + '<input id=ms-per-frame>ms/Frame<br>'
+          + '<input id=particle-height>Particle Height<br>'
+          + '<input id=particle-width>Particle Width<br>'
           + '<input id=scroll-speed>Scroll Speed<br>'
           + '<a onclick=storage_reset()>Reset Settings</a></div></div>';
         storage_update();
@@ -193,6 +225,8 @@ window.onload = function(){
         'movement-keys': 'WASD',
         'max-particles': 1000,
         'ms-per-frame': 25,
+        'particle-height': 5,
+        'particle-width': 5,
         'reset-camera-key': 'H',
         'scroll-speed': 5,
       },
