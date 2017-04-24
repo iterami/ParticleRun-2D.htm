@@ -89,10 +89,6 @@ function draw_logic(){
 }
 
 function logic(){
-    if(core_menu_open){
-        return;
-    }
-
     if(key_left){
         camera_x -= storage_data['scroll-speed'];
     }
