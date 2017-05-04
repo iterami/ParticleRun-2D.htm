@@ -13,8 +13,8 @@ function create_gates(new_gates){
           'event': new_gates[gate]['event'] || function(){},
           'height': new_gates[gate]['height'] || 40,
           'interval': new_gates[gate]['interval'] || 0,
-          'x': canvas_x + new_gates[gate]['x'] || canvas_x,
-          'y': canvas_y + new_gates[gate]['y'] || canvas_y,
+          'x': new_gates[gate]['x'] || 0,
+          'y': new_gates[gate]['y'] || 0,
           'width': new_gates[gate]['width'] || 40,
         });
     }
@@ -41,8 +41,17 @@ function create_particles(new_particles){
 function draw_logic(){
     canvas_buffer.save();
     canvas_buffer.translate(
-      -camera_x,
-      -camera_y
+      canvas_x - camera_x,
+      canvas_y - camera_y
+    );
+
+    // Draw background.
+    canvas_buffer.fillStyle = '#111';
+    canvas_buffer.fillRect(
+      boundaries['x'],
+      boundaries['y'],
+      boundaries['width'],
+      boundaries['height']
     );
 
     // Draw gates.
@@ -121,7 +130,7 @@ function logic(){
           'w1': boundaries['width'],
           'x0': particles[particle]['x'],
           'x1': boundaries['x'],
-          'y0': particles[particle]['x'],
+          'y0': particles[particle]['y'],
           'y1': boundaries['y'],
         })){
             particles.splice(

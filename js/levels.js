@@ -2,10 +2,10 @@
 
 function load_level(id){
     boundaries = {
-      'height': 1998,
-      'width': 1998,
-      'x': -999,
-      'y': -999
+      'height': 500,
+      'width': 500,
+      'x': -250,
+      'y': -300,
     };
 
     if(id === 1){
