@@ -98,19 +98,27 @@ function draw_logic(){
 }
 
 function logic(){
-    if(key_left){
-        camera_x -= storage_data['scroll-speed'];
-    }
-
-    if(key_right){
-        camera_x += storage_data['scroll-speed'];
-    }
-
-    if(key_down){
+    // Move camera down.
+    if(key_down
+      && camera_y < boundaries['y'] + boundaries['height']){
         camera_y += storage_data['scroll-speed'];
     }
 
-    if(key_up){
+    // Move camera left.
+    if(key_left
+      && camera_x > boundaries['x']){
+        camera_x -= storage_data['scroll-speed'];
+    }
+
+    // Move camera right.
+    if(key_right
+      && camera_x < boundaries['x'] + boundaries['width']){
+        camera_x += storage_data['scroll-speed'];
+    }
+
+    // Move camera up.
+    if(key_up
+      && camera_y > boundaries['y']){
         camera_y -= storage_data['scroll-speed'];
     }
 
