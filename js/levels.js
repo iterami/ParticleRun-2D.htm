@@ -14,7 +14,7 @@ function load_level(id){
             'color': '#a1a',
             'dy': 1,
             'event': function(){
-                this.interval = random_integer({
+                this.interval = core_random_integer({
                   'max': 99,
                   'todo': 'ceil',
                 });
@@ -23,10 +23,10 @@ function load_level(id){
                   {
                     'dx': this['dx'],
                     'dy': this['dy'],
-                    'x': this['x'] + random_integer({
+                    'x': this['x'] + core_random_integer({
                       'max': this['width'],
                     }) - 2,
-                    'y': this['y'] + random_integer({
+                    'y': this['y'] + core_random_integer({
                       'max': this['width'],
                     }) - 2,
                   },
@@ -98,7 +98,9 @@ function load_level(id){
             'dx': 5,
             'dy': -1,
             'event': function(){
-                if(Math.random() > .23){
+                if(core_random_boolean({
+                  'chance': .23,
+                })){
                     return;
                 }
 
@@ -118,7 +120,9 @@ function load_level(id){
             'dx': -3,
             'dy': -5,
             'event': function(){
-                if(Math.random() > .23){
+                if(core_random_boolean({
+                  'chance': .23,
+                })){
                     return;
                 }
 
