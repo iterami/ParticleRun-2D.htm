@@ -21,7 +21,7 @@ function create_gates(new_gates){
 }
 
 function create_particles(new_particles){
-    if(particles.length >= storage_data['max-particles']){
+    if(particles.length >= core_storage_data['max-particles']){
         return;
     }
 
@@ -30,8 +30,8 @@ function create_particles(new_particles){
         particles.push({
           'dx': new_particles[particle]['dx'] || 0,
           'dy': new_particles[particle]['dy'] || 0,
-          'height': new_particles[particle]['height'] || storage_data['particle-height'],
-          'width': new_particles[particle]['width'] || storage_data['particle-width'],
+          'height': new_particles[particle]['height'] || core_storage_data['particle-height'],
+          'width': new_particles[particle]['width'] || core_storage_data['particle-width'],
           'x': new_particles[particle]['x'] || 0,
           'y': new_particles[particle]['y'] || 0,
         });
@@ -91,7 +91,7 @@ function draw_logic(){
     canvas_buffer.fillText(
       particles.length
         + '/'
-        + storage_data['max-particles'],
+        + core_storage_data['max-particles'],
       5,
       50
     );
@@ -101,25 +101,25 @@ function logic(){
     // Move camera down.
     if(key_down
       && camera_y < boundaries['y'] + boundaries['height']){
-        camera_y += storage_data['scroll-speed'];
+        camera_y += core_storage_data['scroll-speed'];
     }
 
     // Move camera left.
     if(key_left
       && camera_x > boundaries['x']){
-        camera_x -= storage_data['scroll-speed'];
+        camera_x -= core_storage_data['scroll-speed'];
     }
 
     // Move camera right.
     if(key_right
       && camera_x < boundaries['x'] + boundaries['width']){
-        camera_x += storage_data['scroll-speed'];
+        camera_x += core_storage_data['scroll-speed'];
     }
 
     // Move camera up.
     if(key_up
       && camera_y > boundaries['y']){
-        camera_y -= storage_data['scroll-speed'];
+        camera_y -= core_storage_data['scroll-speed'];
     }
 
     frame_counter += 1;
@@ -200,13 +200,13 @@ function setmode_logic(newgame){
           + '<input id=particle-height>Particle Height<br>'
           + '<input id=particle-width>Particle Width<br>'
           + '<input id=scroll-speed>Scroll Speed<br>'
-          + '<a onclick=storage_reset()>Reset Settings</a></div></div>';
-        storage_update();
+          + '<a onclick=core_storage_reset()>Reset Settings</a></div></div>';
+        core_storage_update();
 
     // New game mode.
     }else{
         if(newgame){
-            storage_save();
+            core_storage_save();
         }
 
         camera_x = 0;
@@ -232,7 +232,7 @@ var key_up = false;
 var particles = [];
 
 window.onload = function(){
-    storage_init({
+    core_storage_init({
       'data': {
         'audio-volume': 1,
         'movement-keys': 'WASD',
@@ -262,19 +262,19 @@ window.onload = function(){
 
         key = String.fromCharCode(key);
 
-        if(key === storage_data['movement-keys'][0]){
+        if(key === core_storage_data['movement-keys'][0]){
             key_up = true;
 
-        }else if(key === storage_data['movement-keys'][1]){
+        }else if(key === core_storage_data['movement-keys'][1]){
             key_left = true;
 
-        }else if(key === storage_data['movement-keys'][2]){
+        }else if(key === core_storage_data['movement-keys'][2]){
             key_down = true;
 
-        }else if(key === storage_data['movement-keys'][3]){
+        }else if(key === core_storage_data['movement-keys'][3]){
             key_right = true;
 
-        }else if(key === storage_data['reset-camera-key']){
+        }else if(key === core_storage_data['reset-camera-key']){
             camera_x = 0;
             camera_y = 0;
 
@@ -286,16 +286,16 @@ window.onload = function(){
     window.onkeyup = function(e){
         var key = String.fromCharCode(e.keyCode || e.which);
 
-        if(key === storage_data['movement-keys'][0]){
+        if(key === core_storage_data['movement-keys'][0]){
             key_up = false;
 
-        }else if(key === storage_data['movement-keys'][1]){
+        }else if(key === core_storage_data['movement-keys'][1]){
             key_left = false;
 
-        }else if(key === storage_data['movement-keys'][2]){
+        }else if(key === core_storage_data['movement-keys'][2]){
             key_down = false;
 
-        }else if(key === storage_data['movement-keys'][3]){
+        }else if(key === core_storage_data['movement-keys'][3]){
             key_right = false;
         }
     };
