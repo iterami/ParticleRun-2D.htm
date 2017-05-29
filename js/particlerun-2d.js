@@ -184,54 +184,7 @@ function logic(){
     }
 }
 
-function setmode_logic(newgame){
-    gates = [];
-    particles = [];
-
-    // Main menu mode.
-    if(canvas_mode === 0){
-        document.body.innerHTML = '<div><div><a onclick=canvas_setmode({mode:1,newgame:true})>Test Level</a></div></div>'
-          + '<div class=right><div><input disabled value=ESC>Menu<br>'
-          + '<input id=movement-keys maxlength=4>Camera ↑←↓→<br>'
-          + '<input id=reset-camera-key maxlength=1>Reset Camera</div><hr>'
-          + '<div><input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br>'
-          + '<input id=max-particles>Max Particles<br>'
-          + '<input id=ms-per-frame>ms/Frame<br>'
-          + '<input id=particle-height>Particle Height<br>'
-          + '<input id=particle-width>Particle Width<br>'
-          + '<input id=scroll-speed>Scroll Speed<br>'
-          + '<a onclick=core_storage_reset()>Reset Settings</a></div></div>';
-        core_storage_update();
-
-    // New game mode.
-    }else{
-        if(newgame){
-            core_storage_save();
-        }
-
-        camera_x = 0;
-        camera_y = 0;
-        frame_counter = 0;
-        key_left = false;
-        key_right = false;
-    }
-}
-
-var boundaries = {};
-var camera_x = 0;
-var camera_y = 0;
-var drag = false;
-var drag_x = 0;
-var drag_y = 0;
-var frame_counter = 0;
-var gates = [];
-var key_down = false;
-var key_left = false;
-var key_right = false;
-var key_up = false;
-var particles = [];
-
-window.onload = function(){
+function repo_init(){
     core_storage_init({
       'data': {
         'audio-volume': 1,
@@ -323,4 +276,51 @@ window.onload = function(){
       window.ontouchend = function(e){
         drag = false;
     };
-};
+}
+
+function setmode_logic(newgame){
+    gates = [];
+    particles = [];
+
+    // Main menu mode.
+    if(canvas_mode === 0){
+        document.body.innerHTML = '<div><div><a onclick=canvas_setmode({mode:1,newgame:true})>Test Level</a></div></div>'
+          + '<div class=right><div><input disabled value=ESC>Menu<br>'
+          + '<input id=movement-keys maxlength=4>Camera ↑←↓→<br>'
+          + '<input id=reset-camera-key maxlength=1>Reset Camera</div><hr>'
+          + '<div><input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br>'
+          + '<input id=max-particles>Max Particles<br>'
+          + '<input id=ms-per-frame>ms/Frame<br>'
+          + '<input id=particle-height>Particle Height<br>'
+          + '<input id=particle-width>Particle Width<br>'
+          + '<input id=scroll-speed>Scroll Speed<br>'
+          + '<a onclick=core_storage_reset()>Reset Settings</a></div></div>';
+        core_storage_update();
+
+    // New game mode.
+    }else{
+        if(newgame){
+            core_storage_save();
+        }
+
+        camera_x = 0;
+        camera_y = 0;
+        frame_counter = 0;
+        key_left = false;
+        key_right = false;
+    }
+}
+
+var boundaries = {};
+var camera_x = 0;
+var camera_y = 0;
+var drag = false;
+var drag_x = 0;
+var drag_y = 0;
+var frame_counter = 0;
+var gates = [];
+var key_down = false;
+var key_left = false;
+var key_right = false;
+var key_up = false;
+var particles = [];
