@@ -185,8 +185,8 @@ function logic(){
 }
 
 function repo_init(){
-    core_storage_init({
-      'data': {
+    core_repo_init({
+      'storage': {
         'audio-volume': 1,
         'movement-keys': 'WASD',
         'max-particles': 1000,
@@ -196,7 +196,7 @@ function repo_init(){
         'reset-camera-key': 'H',
         'scroll-speed': 5,
       },
-      'prefix': 'ParticleRun-2D.htm-',
+      'title': 'ParticleRun-2D.htm',
     });
     canvas_init();
 
