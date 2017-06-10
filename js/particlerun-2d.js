@@ -99,25 +99,25 @@ function draw_logic(){
 
 function logic(){
     // Move camera down.
-    if(key_down
+    if(core_keys[83]['state']
       && camera_y < boundaries['y'] + boundaries['height']){
         camera_y += core_storage_data['scroll-speed'];
     }
 
     // Move camera left.
-    if(key_left
+    if(core_keys[65]['state']
       && camera_x > boundaries['x']){
         camera_x -= core_storage_data['scroll-speed'];
     }
 
     // Move camera right.
-    if(key_right
+    if(core_keys[68]['state']
       && camera_x < boundaries['x'] + boundaries['width']){
         camera_x += core_storage_data['scroll-speed'];
     }
 
     // Move camera up.
-    if(key_up
+    if(core_keys[87]['state']
       && camera_y > boundaries['y']){
         camera_y -= core_storage_data['scroll-speed'];
     }
@@ -186,72 +186,32 @@ function logic(){
 
 function repo_init(){
     core_repo_init({
+      'keybinds': {
+        65: {},
+        68: {},
+        72: {
+          'todo': function(){
+              camera_x = 0;
+              camera_y = 0;
+          },
+        },
+        81: {
+          'todo': canvas_menu_quit,
+        },
+        83: {},
+        87: {},
+      },
       'storage': {
         'audio-volume': 1,
-        'movement-keys': 'WASD',
         'max-particles': 1000,
         'ms-per-frame': 25,
         'particle-height': 5,
         'particle-width': 5,
-        'reset-camera-key': 'H',
         'scroll-speed': 5,
       },
       'title': 'ParticleRun-2D.htm',
     });
     canvas_init();
-
-    window.onkeydown = function(e){
-        if(canvas_mode <= 0){
-            return;
-        }
-
-        var key = e.keyCode || e.which;
-
-        // ESC: menu.
-        if(key === 27){
-            core_escape();
-            return;
-        }
-
-        key = String.fromCharCode(key);
-
-        if(key === core_storage_data['movement-keys'][0]){
-            key_up = true;
-
-        }else if(key === core_storage_data['movement-keys'][1]){
-            key_left = true;
-
-        }else if(key === core_storage_data['movement-keys'][2]){
-            key_down = true;
-
-        }else if(key === core_storage_data['movement-keys'][3]){
-            key_right = true;
-
-        }else if(key === core_storage_data['reset-camera-key']){
-            camera_x = 0;
-            camera_y = 0;
-
-        }else if(key === 'Q'){
-            canvas_menu_quit();
-        }
-    };
-
-    window.onkeyup = function(e){
-        var key = String.fromCharCode(e.keyCode || e.which);
-
-        if(key === core_storage_data['movement-keys'][0]){
-            key_up = false;
-
-        }else if(key === core_storage_data['movement-keys'][1]){
-            key_left = false;
-
-        }else if(key === core_storage_data['movement-keys'][2]){
-            key_down = false;
-
-        }else if(key === core_storage_data['movement-keys'][3]){
-            key_right = false;
-        }
-    };
 
     window.onmousedown =
       window.ontouchstart = function(e){
@@ -285,9 +245,7 @@ function setmode_logic(newgame){
     // Main menu mode.
     if(canvas_mode === 0){
         document.getElementById('wrap').innerHTML = '<div><div><a onclick=canvas_setmode({mode:1,newgame:true})>Test Level</a></div></div>'
-          + '<div class=right><div><input disabled value=ESC>Menu<br>'
-          + '<input id=movement-keys maxlength=4>Camera ↑←↓→<br>'
-          + '<input id=reset-camera-key maxlength=1>Reset Camera</div><hr>'
+          + '<div class=right><div><input disabled value=ESC>Menu</div><hr>'
           + '<div><input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br>'
           + '<input id=max-particles>Max Particles<br>'
           + '<input id=ms-per-frame>ms/Frame<br>'
@@ -306,8 +264,6 @@ function setmode_logic(newgame){
         camera_x = 0;
         camera_y = 0;
         frame_counter = 0;
-        key_left = false;
-        key_right = false;
     }
 }
 
@@ -319,8 +275,4 @@ var drag_x = 0;
 var drag_y = 0;
 var frame_counter = 0;
 var gates = [];
-var key_down = false;
-var key_left = false;
-var key_right = false;
-var key_up = false;
 var particles = [];
