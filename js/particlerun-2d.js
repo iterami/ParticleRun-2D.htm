@@ -212,30 +212,6 @@ function repo_init(){
       'title': 'ParticleRun-2D.htm',
     });
     canvas_init();
-
-    window.onmousedown =
-      window.ontouchstart = function(e){
-        drag = true;
-        drag_x = e.pageX;
-        drag_y = e.pageY;
-    };
-
-    window.onmousemove =
-      window.ontouchmove = function(e){
-        if(!drag){
-            return;
-        }
-
-        camera_x += drag_x - e.pageX;
-        camera_y += drag_y - e.pageY;
-        drag_x = e.pageX;
-        drag_y = e.pageY;
-    };
-
-    window.onmouseup =
-      window.ontouchend = function(e){
-        drag = false;
-    };
 }
 
 function setmode_logic(newgame){
@@ -270,9 +246,6 @@ function setmode_logic(newgame){
 var boundaries = {};
 var camera_x = 0;
 var camera_y = 0;
-var drag = false;
-var drag_x = 0;
-var drag_y = 0;
 var frame_counter = 0;
 var gates = [];
 var particles = [];
