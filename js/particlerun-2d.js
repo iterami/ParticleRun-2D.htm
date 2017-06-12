@@ -186,6 +186,7 @@ function logic(){
 
 function repo_init(){
     core_repo_init({
+      'info': '<a onclick=canvas_setmode({mode:1,newgame:true})>Test Level</a>',
       'keybinds': {
         65: {},
         68: {},
@@ -195,12 +196,10 @@ function repo_init(){
               camera_y = 0;
           },
         },
-        81: {
-          'todo': canvas_menu_quit,
-        },
         83: {},
         87: {},
       },
+      'menu': true,
       'storage': {
         'audio-volume': 1,
         'max-particles': 1000,
@@ -209,38 +208,10 @@ function repo_init(){
         'particle-width': 5,
         'scroll-speed': 5,
       },
+      'storage-menu': '<input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br><input id=max-particles>Max Particles<br><input id=ms-per-frame>ms/Frame<br><input id=particle-height>Particle Height<br><input id=particle-width>Particle Width<br><input id=scroll-speed>Scroll Speed',
       'title': 'ParticleRun-2D.htm',
     });
     canvas_init();
-}
-
-function setmode_logic(newgame){
-    gates = [];
-    particles = [];
-
-    // Main menu mode.
-    if(canvas_mode === 0){
-        document.getElementById('wrap').innerHTML = '<div><div><a onclick=canvas_setmode({mode:1,newgame:true})>Test Level</a></div></div>'
-          + '<div class=right><div><input disabled value=ESC>Menu</div><hr>'
-          + '<div><input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br>'
-          + '<input id=max-particles>Max Particles<br>'
-          + '<input id=ms-per-frame>ms/Frame<br>'
-          + '<input id=particle-height>Particle Height<br>'
-          + '<input id=particle-width>Particle Width<br>'
-          + '<input id=scroll-speed>Scroll Speed<br>'
-          + '<a onclick=core_storage_reset()>Reset Settings</a></div></div>';
-        core_storage_update();
-
-    // New game mode.
-    }else{
-        if(newgame){
-            core_storage_save();
-        }
-
-        camera_x = 0;
-        camera_y = 0;
-        frame_counter = 0;
-    }
 }
 
 var boundaries = {};

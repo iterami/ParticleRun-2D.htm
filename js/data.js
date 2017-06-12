@@ -7,6 +7,11 @@ function load_data(id){
       'x': -250,
       'y': -300,
     };
+    camera_x = 0;
+    camera_y = 0;
+    frame_counter = 0;
+    gates = [];
+    particles = [];
 
     if(id === 1){
         var level_gates = [
