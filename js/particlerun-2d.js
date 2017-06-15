@@ -201,14 +201,13 @@ function repo_init(){
       },
       'menu': true,
       'storage': {
-        'audio-volume': 1,
         'max-particles': 1000,
         'ms-per-frame': 25,
         'particle-height': 5,
         'particle-width': 5,
         'scroll-speed': 5,
       },
-      'storage-menu': '<input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br><input id=max-particles>Max Particles<br><input id=ms-per-frame>ms/Frame<br><input id=particle-height>Particle Height<br><input id=particle-width>Particle Width<br><input id=scroll-speed>Scroll Speed',
+      'storage-menu': '<input id=max-particles>Max Particles<br><input id=ms-per-frame>ms/Frame<br><input id=particle-height>Particle Height<br><input id=particle-width>Particle Width<br><input id=scroll-speed>Scroll Speed',
       'title': 'ParticleRun-2D.htm',
     });
     canvas_init();
