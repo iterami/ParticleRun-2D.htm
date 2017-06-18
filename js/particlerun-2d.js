@@ -186,7 +186,7 @@ function logic(){
 
 function repo_init(){
     core_repo_init({
-      'info': '<input onclick=canvas_setmode({mode:1,newgame:true}) type=button value="Test Level">',
+      'info': '<input onclick=canvas_setmode({newgame:true}) type=button value="Test Level">',
       'keybinds': {
         65: {},
         68: {},
