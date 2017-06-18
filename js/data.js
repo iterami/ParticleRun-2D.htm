@@ -14,6 +14,8 @@ function load_data(id){
     particles = [];
 
     if(id === 1){
+
+    }else{
         var level_gates = [
           {
             'color': '#a1a',
