@@ -40,6 +40,7 @@ function create_particles(new_particles){
 
 function draw_logic(){
     canvas_buffer.save();
+
     canvas_buffer.translate(
       canvas_x - camera_x,
       canvas_y - camera_y
@@ -77,24 +78,6 @@ function draw_logic(){
     };
 
     canvas_buffer.restore();
-
-    canvas_buffer.fillStyle = '#fff';
-    // Draw camera position.
-    canvas_buffer.fillText(
-      camera_x + 'x ' + camera_y + 'y',
-      5,
-      25
-    );
-
-    // Draw number of particles
-    //   and max-particles.
-    canvas_buffer.fillText(
-      particles.length
-        + '/'
-        + core_storage_data['max-particles'],
-      5,
-      50
-    );
 }
 
 function logic(){
@@ -182,6 +165,14 @@ function logic(){
             }
         }
     }
+
+    core_ui_update({
+      'ids': {
+        'particles': particles.length + '/' + core_storage_data['max-particles'],
+        'x': camera_x,
+        'y': camera_y,
+      },
+    });
 }
 
 function repo_init(){
@@ -208,6 +199,7 @@ function repo_init(){
       },
       'storage-menu': '<table><tr><td><input id=max-particles><td>Max Particles<tr><td><input id=particle-height><td>Particle Height<tr><td><input id=particle-width><td>Particle Width<tr><td><input id=scroll-speed><td>Scroll Speed</table>',
       'title': 'ParticleRun-2D.htm',
+      'ui': '<input id=ui-particles>Particles<br><input id=ui-x>X<br><input id=ui-y>Y',
     });
     canvas_init();
 }
