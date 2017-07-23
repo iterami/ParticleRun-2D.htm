@@ -1,43 +1,5 @@
 'use strict';
 
-function create_gates(new_gates){
-    new_gates = new_gates || [{}];
-    for(var gate in new_gates){
-        gates.push({
-          'color': new_gates[gate]['color'] || '#fff',
-          'destroy': new_gates[gate]['destroy'] !== void 0
-            ? new_gates[gate]['destroy']
-            : false,
-          'dx': new_gates[gate]['dx'] || false,
-          'dy': new_gates[gate]['dy'] || false,
-          'event': new_gates[gate]['event'] || function(){},
-          'height': new_gates[gate]['height'] || 40,
-          'interval': new_gates[gate]['interval'] || 0,
-          'x': new_gates[gate]['x'] || 0,
-          'y': new_gates[gate]['y'] || 0,
-          'width': new_gates[gate]['width'] || 40,
-        });
-    }
-}
-
-function create_particles(new_particles){
-    if(particles.length >= core_storage_data['max-particles']){
-        return;
-    }
-
-    new_particles = new_particles || [{}];
-    for(var particle in new_particles){
-        particles.push({
-          'dx': new_particles[particle]['dx'] || 0,
-          'dy': new_particles[particle]['dy'] || 0,
-          'height': new_particles[particle]['height'] || core_storage_data['particle-height'],
-          'width': new_particles[particle]['width'] || core_storage_data['particle-width'],
-          'x': new_particles[particle]['x'] || 0,
-          'y': new_particles[particle]['y'] || 0,
-        });
-    }
-}
-
 function draw_logic(){
     canvas_buffer.save();
 
