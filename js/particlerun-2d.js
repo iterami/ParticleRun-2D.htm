@@ -30,14 +30,19 @@ function draw_logic(){
 
     // Draw particles.
     canvas_buffer.fillStyle = '#fff';
-    for(var particle in particles){
-        canvas_buffer.fillRect(
-          particles[particle]['x'],
-          particles[particle]['y'],
-          particles[particle]['width'],
-          particles[particle]['height']
-        );
-    };
+    core_group_modify({
+      'groups': [
+        'particle',
+      ],
+      'todo': function(entity){
+          canvas_buffer.fillRect(
+            core_entities[entity]['x'],
+            core_entities[entity]['y'],
+            core_entities[entity]['width'],
+            core_entities[entity]['height']
+          );
+      },
+    });
 
     canvas_buffer.restore();
 }
@@ -72,26 +77,32 @@ function logic(){
         frame_counter = 0;
     }
 
-    for(var particle in particles){
-        particles[particle]['x'] += particles[particle]['dx'];
-        particles[particle]['y'] += particles[particle]['dy'];
+    core_group_modify({
+      'groups': [
+        'particle',
+      ],
+      'todo': function(entity){
+          core_entities[entity]['x'] += core_entities[entity]['dx'];
+          core_entities[entity]['y'] += core_entities[entity]['dy'];
 
-        if(!math_rectangle_overlap({
-          'h0': particles[particle]['height'],
-          'h1': boundaries['height'],
-          'w0': particles[particle]['width'],
-          'w1': boundaries['width'],
-          'x0': particles[particle]['x'],
-          'x1': boundaries['x'],
-          'y0': particles[particle]['y'],
-          'y1': boundaries['y'],
-        })){
-            particles.splice(
-              particle,
-              1
-            );
-        }
-    }
+          if(!math_rectangle_overlap({
+            'h0': core_entities[entity]['height'],
+            'h1': boundaries['height'],
+            'w0': core_entities[entity]['width'],
+            'w1': boundaries['width'],
+            'x0': core_entities[entity]['x'],
+            'x1': boundaries['x'],
+            'y0': core_entities[entity]['y'],
+            'y1': boundaries['y'],
+          })){
+              core_entity_remove({
+                'entities': [
+                  entity,
+                ],
+              });
+          }
+      },
+    });
 
     for(var gate in gates){
         if(gates[gate]['interval'] > 0
@@ -99,38 +110,44 @@ function logic(){
             gates[gate]['event']();
         }
 
-        for(var particle in particles){
-            if(math_rectangle_overlap({
-              'h0': particles[particle]['height'],
-              'h1': gates[gate]['height'],
-              'w0': particles[particle]['width'],
-              'w1': gates[gate]['width'],
-              'x0': particles[particle]['x'],
-              'x1': gates[gate]['x'],
-              'y0': particles[particle]['y'],
-              'y1': gates[gate]['y'],
-            })){
-                if(gates[gate]['destroy']){
-                    particles.splice(
-                      particle,
-                      1
-                    );
-                    continue;
-                }
+        core_group_modify({
+          'groups': [
+            'particle',
+          ],
+          'todo': function(entity){
+              if(math_rectangle_overlap({
+                'h0': core_entities[entity]['height'],
+                'h1': gates[gate]['height'],
+                'w0': core_entities[entity]['width'],
+                'w1': gates[gate]['width'],
+                'x0': core_entities[entity]['x'],
+                'x1': gates[gate]['x'],
+                'y0': core_entities[entity]['y'],
+                'y1': gates[gate]['y'],
+              })){
+                  if(gates[gate]['destroy']){
+                      core_entity_remove({
+                        'entities': [
+                          entity,
+                        ],
+                      });
 
-                if(gates[gate]['dx'] !== false){
-                    particles[particle]['dx'] = gates[gate]['dx'];
-                }
-                if(gates[gate]['dy'] !== false){
-                    particles[particle]['dy'] = gates[gate]['dy'];
-                }
-            }
-        }
+                  }else{
+                      if(gates[gate]['dx'] !== false){
+                          core_entities[entity]['dx'] = gates[gate]['dx'];
+                      }
+                      if(gates[gate]['dy'] !== false){
+                          core_entities[entity]['dy'] = gates[gate]['dy'];
+                      }
+                  }
+              }
+          },
+        });
     }
 
     core_ui_update({
       'ids': {
-        'particles': particles.length + '/' + core_storage_data['max-particles'],
+        'particles': core_entity_info['particle']['count'] + '/' + core_storage_data['max-particles'],
         'x': camera_x,
         'y': camera_y,
       },
@@ -163,6 +180,11 @@ function repo_init(){
       'title': 'ParticleRun-2D.htm',
       'ui': '<span id=ui-particles></span> Particles<br><span id=ui-x></span>x, <span id=ui-y></span>y',
     });
+
+    core_entity_set({
+      'type': 'particle',
+    });
+
     canvas_init();
 }
 
@@ -171,4 +193,3 @@ var camera_x = 0;
 var camera_y = 0;
 var frame_counter = 0;
 var gates = [];
-var particles = [];

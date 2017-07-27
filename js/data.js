@@ -20,24 +20,6 @@ function create_gates(new_gates){
     }
 }
 
-function create_particles(new_particles){
-    if(particles.length >= core_storage_data['max-particles']){
-        return;
-    }
-
-    new_particles = new_particles || [{}];
-    for(var particle in new_particles){
-        particles.push({
-          'dx': new_particles[particle]['dx'] || 0,
-          'dy': new_particles[particle]['dy'] || 0,
-          'height': new_particles[particle]['height'] || core_storage_data['particle-height'],
-          'width': new_particles[particle]['width'] || core_storage_data['particle-width'],
-          'x': new_particles[particle]['x'] || 0,
-          'y': new_particles[particle]['y'] || 0,
-        });
-    }
-}
-
 function load_data(id){
     boundaries = {
       'height': 500,
@@ -49,7 +31,6 @@ function load_data(id){
     camera_y = 0;
     frame_counter = 0;
     gates = [];
-    particles = [];
 
     if(id === 1){
 
@@ -64,18 +45,25 @@ function load_data(id){
                   'todo': 'ceil',
                 });
 
-                create_particles([
-                  {
-                    'dx': this['dx'],
-                    'dy': this['dy'],
-                    'x': this['x'] + core_random_integer({
-                      'max': this['width'],
-                    }) - 2,
-                    'y': this['y'] + core_random_integer({
-                      'max': this['width'],
-                    }) - 2,
-                  },
-                ]);
+                if(core_entity_info['particle']['count'] < core_storage_data['max-particles']){
+                    core_entity_create({
+                      'properties': {
+                        'dx': this['dx'],
+                        'dy': this['dy'],
+                        'height': core_storage_data['particle-height'],
+                        'width': core_storage_data['particle-width'],
+                        'x': this['x'] + core_random_integer({
+                          'max': this['width'],
+                        }) - 2,
+                        'y': this['y'] + core_random_integer({
+                          'max': this['width'],
+                        }) - 2,
+                      },
+                      'types': [
+                        'particle',
+                      ],
+                    });
+                }
             },
             'interval': 10,
             'x': -20,
