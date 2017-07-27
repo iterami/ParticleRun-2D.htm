@@ -1,25 +1,5 @@
 'use strict';
 
-function create_gates(new_gates){
-    new_gates = new_gates || [{}];
-    for(var gate in new_gates){
-        gates.push({
-          'color': new_gates[gate]['color'] || '#fff',
-          'destroy': new_gates[gate]['destroy'] !== void 0
-            ? new_gates[gate]['destroy']
-            : false,
-          'dx': new_gates[gate]['dx'] || false,
-          'dy': new_gates[gate]['dy'] || false,
-          'event': new_gates[gate]['event'] || function(){},
-          'height': new_gates[gate]['height'] || 40,
-          'interval': new_gates[gate]['interval'] || 0,
-          'x': new_gates[gate]['x'] || 0,
-          'y': new_gates[gate]['y'] || 0,
-          'width': new_gates[gate]['width'] || 40,
-        });
-    }
-}
-
 function load_data(id){
     boundaries = {
       'height': 500,
@@ -30,7 +10,6 @@ function load_data(id){
     camera_x = 0;
     camera_y = 0;
     frame_counter = 0;
-    gates = [];
 
     if(id === 1){
 
@@ -176,5 +155,23 @@ function load_data(id){
         ];
     }
 
-    create_gates(level_gates);
+    for(var gate in level_gates){
+        core_entity_create({
+          'properties': {
+            'color': level_gates[gate]['color'],
+            'destroy': level_gates[gate]['destroy'],
+            'dx': level_gates[gate]['dx'],
+            'dy': level_gates[gate]['dy'],
+            'event': level_gates[gate]['event'],
+            'height': level_gates[gate]['height'],
+            'interval': level_gates[gate]['interval'],
+            'x': level_gates[gate]['x'],
+            'y': level_gates[gate]['y'],
+            'width': level_gates[gate]['width'],
+          },
+          'types': [
+            'gate',
+          ],
+        });
+    }
 }

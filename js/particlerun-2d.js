@@ -18,15 +18,20 @@ function draw_logic(){
     );
 
     // Draw gates.
-    for(var gate in gates){
-        canvas_buffer.fillStyle = gates[gate]['color'];
-        canvas_buffer.fillRect(
-          gates[gate]['x'],
-          gates[gate]['y'],
-          gates[gate]['width'],
-          gates[gate]['height']
-       );
-    }
+    core_group_modify({
+      'groups': [
+        'gate',
+      ],
+      'todo': function(entity){
+          canvas_buffer.fillStyle = core_entities[entity]['color'];
+          canvas_buffer.fillRect(
+            core_entities[entity]['x'],
+            core_entities[entity]['y'],
+            core_entities[entity]['width'],
+            core_entities[entity]['height']
+         );
+      },
+    });
 
     // Draw particles.
     canvas_buffer.fillStyle = '#fff';
@@ -104,46 +109,51 @@ function logic(){
       },
     });
 
-    for(var gate in gates){
-        if(gates[gate]['interval'] > 0
-          && frame_counter % gates[gate]['interval'] === 0){
-            gates[gate]['event']();
-        }
+    core_group_modify({
+      'groups': [
+        'gate',
+      ],
+      'todo': function(gate){
+          if(core_entities[gate]['interval'] > 0
+            && frame_counter % core_entities[gate]['interval'] === 0){
+              core_entities[gate]['event']();
+          }
 
-        core_group_modify({
-          'groups': [
-            'particle',
-          ],
-          'todo': function(entity){
-              if(math_rectangle_overlap({
-                'h0': core_entities[entity]['height'],
-                'h1': gates[gate]['height'],
-                'w0': core_entities[entity]['width'],
-                'w1': gates[gate]['width'],
-                'x0': core_entities[entity]['x'],
-                'x1': gates[gate]['x'],
-                'y0': core_entities[entity]['y'],
-                'y1': gates[gate]['y'],
-              })){
-                  if(gates[gate]['destroy']){
-                      core_entity_remove({
-                        'entities': [
-                          entity,
-                        ],
-                      });
+          core_group_modify({
+            'groups': [
+              'particle',
+            ],
+            'todo': function(particle){
+                if(math_rectangle_overlap({
+                  'h0': core_entities[particle]['height'],
+                  'h1': core_entities[gate]['height'],
+                  'w0': core_entities[particle]['width'],
+                  'w1': core_entities[gate]['width'],
+                  'x0': core_entities[particle]['x'],
+                  'x1': core_entities[gate]['x'],
+                  'y0': core_entities[particle]['y'],
+                  'y1': core_entities[gate]['y'],
+                })){
+                    if(core_entities[gate]['destroy']){
+                        core_entity_remove({
+                          'entities': [
+                            particle,
+                          ],
+                        });
 
-                  }else{
-                      if(gates[gate]['dx'] !== false){
-                          core_entities[entity]['dx'] = gates[gate]['dx'];
-                      }
-                      if(gates[gate]['dy'] !== false){
-                          core_entities[entity]['dy'] = gates[gate]['dy'];
-                      }
-                  }
-              }
-          },
+                    }else{
+                        if(core_entities[gate]['dx'] !== false){
+                            core_entities[particle]['dx'] = core_entities[gate]['dx'];
+                        }
+                        if(core_entities[gate]['dy'] !== false){
+                            core_entities[particle]['dy'] = core_entities[gate]['dy'];
+                        }
+                    }
+                }
+            },
         });
-    }
+      },
+    });
 
     core_ui_update({
       'ids': {
@@ -182,6 +192,19 @@ function repo_init(){
     });
 
     core_entity_set({
+      'properties': {
+        'color': '#fff',
+        'destroy': false,
+        'dx': false,
+        'dy': false,
+        'event': function(){},
+        'height': 40,
+        'interval': 0,
+        'width': 40,
+      },
+      'type': 'gate',
+    });
+    core_entity_set({
       'type': 'particle',
     });
 
@@ -192,4 +215,3 @@ var boundaries = {};
 var camera_x = 0;
 var camera_y = 0;
 var frame_counter = 0;
-var gates = [];
