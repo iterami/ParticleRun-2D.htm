@@ -166,6 +166,21 @@ function logic(){
 
 function repo_init(){
     core_repo_init({
+      'entities': {
+        'gate': {
+          'properties': {
+            'color': '#fff',
+            'destroy': false,
+            'dx': false,
+            'dy': false,
+            'event': function(){},
+            'height': 40,
+            'interval': 0,
+            'width': 40,
+          },
+        },
+        'particle': {},
+      },
       'info': '<input onclick=canvas_setmode({newgame:true}) type=button value="Test Level">',
       'keybinds': {
         65: {},
@@ -190,24 +205,6 @@ function repo_init(){
       'title': 'ParticleRun-2D.htm',
       'ui': '<span id=ui-particles></span> Particles<br><span id=ui-x></span>x, <span id=ui-y></span>y',
     });
-
-    core_entity_set({
-      'properties': {
-        'color': '#fff',
-        'destroy': false,
-        'dx': false,
-        'dy': false,
-        'event': function(){},
-        'height': 40,
-        'interval': 0,
-        'width': 40,
-      },
-      'type': 'gate',
-    });
-    core_entity_set({
-      'type': 'particle',
-    });
-
     canvas_init();
 }
 
