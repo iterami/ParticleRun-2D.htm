@@ -17,10 +17,11 @@ function draw_logic(){
       boundaries['height']
     );
 
-    // Draw gates.
+    // Draw gates and particles.
     core_group_modify({
       'groups': [
         'gate',
+        'particle',
       ],
       'todo': function(entity){
           canvas_buffer.fillStyle = core_entities[entity]['color'];
@@ -30,22 +31,6 @@ function draw_logic(){
             core_entities[entity]['width'],
             core_entities[entity]['height']
          );
-      },
-    });
-
-    // Draw particles.
-    canvas_buffer.fillStyle = '#fff';
-    core_group_modify({
-      'groups': [
-        'particle',
-      ],
-      'todo': function(entity){
-          canvas_buffer.fillRect(
-            core_entities[entity]['x'],
-            core_entities[entity]['y'],
-            core_entities[entity]['width'],
-            core_entities[entity]['height']
-          );
       },
     });
 
@@ -179,7 +164,11 @@ function repo_init(){
             'width': 40,
           },
         },
-        'particle': {},
+        'particle': {
+          'properties': {
+            'color': '#fff',
+          },
+        },
       },
       'info': '<input onclick=canvas_setmode({newgame:true}) type=button value="Test Level">',
       'keybinds': {
