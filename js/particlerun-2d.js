@@ -9,7 +9,11 @@ function draw_logic(){
     );
 
     // Draw background.
-    canvas_buffer.fillStyle = '#111';
+    canvas_setproperties({
+      'properties': {
+        'fillStyle': '#111',
+      },
+    });
     canvas_buffer.fillRect(
       boundaries['x'],
       boundaries['y'],
@@ -24,7 +28,11 @@ function draw_logic(){
         'particle',
       ],
       'todo': function(entity){
-          canvas_buffer.fillStyle = core_entities[entity]['color'];
+          canvas_setproperties({
+            'properties': {
+              'fillStyle': core_entities[entity]['color'],
+            },
+          });
           canvas_buffer.fillRect(
             core_entities[entity]['x'],
             core_entities[entity]['y'],
