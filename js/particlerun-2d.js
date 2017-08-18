@@ -178,7 +178,17 @@ function repo_init(){
           },
         },
       },
-      'info': '<input onclick=canvas_setmode({newgame:true}) type=button value="Test Level">',
+      'info': '<input id=test type=button value="Test Level">',
+      'info-events': {
+        'test': {
+          'todo': function(){
+              canvas_setmode({
+                'newgame': true,
+              });
+          },
+          'type': 'onclick',
+        },
+      },
       'keybinds': {
         65: {},
         68: {},
