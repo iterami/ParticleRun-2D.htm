@@ -4,8 +4,8 @@ function draw_logic(){
     canvas_buffer.save();
 
     canvas_buffer.translate(
-      canvas_x - camera_x,
-      canvas_y - camera_y
+      canvas_properties['width-half'] - camera_x,
+      canvas_properties['height-half'] - camera_y
     );
 
     // Draw background.
