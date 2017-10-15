@@ -175,3 +175,8 @@ function load_data(id){
         });
     }
 }
+
+var boundaries = {};
+var camera_x = 0;
+var camera_y = 0;
+var frame_counter = 0;
