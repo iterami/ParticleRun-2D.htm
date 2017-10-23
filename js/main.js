@@ -178,6 +178,12 @@ function repo_init(){
           },
         },
       },
+      'globals': {
+        'boundaries': {},
+        'camera_x': 0,
+        'camera_y': 0,
+        'frame_counter': 0,
+      },
       'info': '<input id=test type=button value="Test Level">',
       'info-events': {
         'test': {
