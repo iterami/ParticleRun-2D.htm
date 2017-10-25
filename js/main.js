@@ -178,6 +178,15 @@ function repo_init(){
           },
         },
       },
+      'events': {
+        'test': {
+          'onclick': function(){
+              canvas_setmode({
+                'newgame': true,
+              });
+          },
+        },
+      },
       'globals': {
         'boundaries': {},
         'camera_x': 0,
@@ -185,15 +194,6 @@ function repo_init(){
         'frame_counter': 0,
       },
       'info': '<input id=test type=button value="Test Level">',
-      'info-events': {
-        'test': {
-          'todo': function(){
-              canvas_setmode({
-                'newgame': true,
-              });
-          },
-        },
-      },
       'keybinds': {
         65: {},
         68: {},
