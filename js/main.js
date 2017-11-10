@@ -47,25 +47,25 @@ function draw_logic(){
 
 function logic(){
     // Move camera down.
-    if(core_keys[83]['state']
+    if(core_keys[core_storage_data['move-↓']]['state']
       && camera_y < boundaries['y'] + boundaries['height']){
         camera_y += core_storage_data['scroll-speed'];
     }
 
     // Move camera left.
-    if(core_keys[65]['state']
+    if(core_keys[core_storage_data['move-←']]['state']
       && camera_x > boundaries['x']){
         camera_x -= core_storage_data['scroll-speed'];
     }
 
     // Move camera right.
-    if(core_keys[68]['state']
+    if(core_keys[core_storage_data['move-→']]['state']
       && camera_x < boundaries['x'] + boundaries['width']){
         camera_x += core_storage_data['scroll-speed'];
     }
 
     // Move camera up.
-    if(core_keys[87]['state']
+    if(core_keys[core_storage_data['move-↑']]['state']
       && camera_y > boundaries['y']){
         camera_y -= core_storage_data['scroll-speed'];
     }
@@ -195,16 +195,12 @@ function repo_init(){
       },
       'info': '<input id=test type=button value="Test Level">',
       'keybinds': {
-        65: {},
-        68: {},
         72: {
           'todo': function(){
               camera_x = 0;
               camera_y = 0;
           },
         },
-        83: {},
-        87: {},
       },
       'menu': true,
       'storage': {
