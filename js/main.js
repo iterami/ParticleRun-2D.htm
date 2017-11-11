@@ -139,8 +139,6 @@ function logic(){
     core_ui_update({
       'ids': {
         'particles': core_entity_info['particle']['count'] + '/' + core_storage_data['max-particles'],
-        'x': camera_x,
-        'y': camera_y,
       },
     });
 }
@@ -197,7 +195,7 @@ function repo_init(){
       },
       'storage-menu': '<table><tr><td><input id=max-particles><td>Max Particles<tr><td><input id=particle-height><td>Particle Height<tr><td><input id=particle-width><td>Particle Width<tr><td><input id=scroll-speed><td>Scroll Speed</table>',
       'title': 'ParticleRun-2D.htm',
-      'ui': '<span id=ui-particles></span> Particles<br><span id=ui-x></span>x, <span id=ui-y></span>y',
+      'ui': '<span id=ui-particles></span> Particles',
     });
     canvas_init();
 }
