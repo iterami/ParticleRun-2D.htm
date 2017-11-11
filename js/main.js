@@ -109,7 +109,7 @@ function logic(){
       'todo': function(gate){
           if(core_entities[gate]['interval'] > 0
             && frame_counter % core_entities[gate]['interval'] === 0){
-              core_entities[gate]['event']();
+              core_entities[gate]['change']();
           }
 
           core_group_modify({
@@ -127,20 +127,8 @@ function logic(){
                   'y0': core_entities[particle]['y'],
                   'y1': core_entities[gate]['y'],
                 })){
-                    if(core_entities[gate]['destroy']){
-                        core_entity_remove({
-                          'entities': [
-                            particle,
-                          ],
-                        });
-
-                    }else{
-                        if(core_entities[gate]['dx'] !== false){
-                            core_entities[particle]['dx'] = core_entities[gate]['dx'];
-                        }
-                        if(core_entities[gate]['dy'] !== false){
-                            core_entities[particle]['dy'] = core_entities[gate]['dy'];
-                        }
+                    if(core_entities[gate]['event'] !== false){
+                        core_entities[gate]['event'](particle);
                     }
                 }
             },
@@ -162,11 +150,9 @@ function repo_init(){
       'entities': {
         'gate': {
           'properties': {
+            'change': false,
             'color': '#fff',
-            'destroy': false,
-            'dx': false,
-            'dy': false,
-            'event': function(){},
+            'event': false,
             'height': 40,
             'interval': 0,
             'width': 40,

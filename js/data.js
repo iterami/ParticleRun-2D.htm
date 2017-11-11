@@ -17,8 +17,7 @@ function load_data(id){
         var level_gates = [
           {
             'color': '#a1a',
-            'dy': 1,
-            'event': function(){
+            'change': function(){
                 this.interval = core_random_integer({
                   'max': 99,
                   'todo': 'ceil',
@@ -27,8 +26,8 @@ function load_data(id){
                 if(core_entity_info['particle']['count'] < core_storage_data['max-particles']){
                     core_entity_create({
                       'properties': {
-                        'dx': this['dx'],
-                        'dy': this['dy'],
+                        'dx': 0,
+                        'dy': 1,
                         'height': core_storage_data['particle-height'],
                         'width': core_storage_data['particle-width'],
                         'x': this['x'] + core_random_integer({
@@ -50,22 +49,25 @@ function load_data(id){
           },
           {
             'color': '#1a1',
-            'dy': 5,
+            'event': function(particle){
+                core_entities[particle]['dy'] *= 1.1;
+            },
             'width': 60,
             'x': -30,
             'y': -250,
           },
           {
             'color': '#aa1',
-            'dx': 1,
-            'dy': 1,
-            'event': function(){
+            'change': function(){
                 this.color = this.color === '#aa1'
                   ? '#1aa'
                   : '#aa1';
-                this.dx = this.dx === 1
-                  ? -1
-                  : 1;
+            },
+            'event': function(particle){
+                core_entities[particle]['dx'] = this.color === '#aa1'
+                  ? 1
+                  : -1;
+                core_entities[particle]['dy'] = 1;
             },
             'interval': 55,
             'x': -30,
@@ -73,18 +75,20 @@ function load_data(id){
           },
           {
             'color': '#aa1',
-            'dx': 1,
-            'dy': -1,
-            'event': function(){
+            'change': function(){
                 this.color = this.color === '#aa1'
                   ? '#1aa'
                   : '#aa1';
-                this.dx = this.dx === 0
-                  ? 1
-                  : 0;
-                this.dy = this.dy === -1
-                  ? -10
-                  : -1;
+            },
+            'event': function(particle){
+                if(this.color === '#aa1'){
+                    core_entities[particle]['dx'] = 1;
+                    core_entities[particle]['dy'] = -1;
+
+                }else{
+                    core_entities[particle]['dx'] = 0;
+                    core_entities[particle]['dy'] = -10;
+                }
             },
             'interval': 42,
             'x': -120,
@@ -99,7 +103,9 @@ function load_data(id){
           },
           {
             'color': '#aaa',
-            'dy': 10,
+            'event': function(particle){
+                core_entities[particle]['dy'] *= -1;
+            },
             'height': 20,
             'x': -140,
             'y': -300,
@@ -107,9 +113,7 @@ function load_data(id){
           },
           {
             'color': '#a11',
-            'dx': 5,
-            'dy': -1,
-            'event': function(){
+            'change': function(){
                 if(core_random_boolean({
                   'chance': .23,
                 })){
@@ -119,9 +123,16 @@ function load_data(id){
                 this.color = this.color === '#a11'
                   ? '#1a1'
                   : '#a11';
-                this.dx = this.dx === 5
-                  ? -1
-                  : 5;
+            },
+            'event': function(particle){
+                if(this.color === '#1a1'){
+                    core_entities[particle]['dx'] = -1;
+
+                }else{
+                    core_entities[particle]['dx'] = 5;
+                }
+
+                core_entities[particle]['dy'] = -1;
             },
             'interval': 23,
             'x': 80,
@@ -129,24 +140,22 @@ function load_data(id){
           },
           {
             'color': '#a11',
-            'dx': -3,
-            'dy': -5,
-            'event': function(){
+            'change': function(){
                 if(core_random_boolean({
                   'chance': .23,
                 })){
                     return;
                 }
 
-                this.color = this.dx === -3
+                this.color = this.color === '#11a'
                   ? '#a11'
                   : '#11a';
-                this.dx = this.dx === -3
-                  ? false
-                  : -3;
-                this.dy = this.dy === -5
-                  ? false
-                  : -5;
+            },
+            'event': function(particle){
+                if(this.color === '#11a'){
+                    core_entities[particle]['dx'] = -3;
+                    core_entities[particle]['dy'] = -5;
+                }
             },
             'interval': 23,
             'x': 130,
@@ -158,16 +167,14 @@ function load_data(id){
     for(var gate in level_gates){
         core_entity_create({
           'properties': {
+            'change': level_gates[gate]['change'],
             'color': level_gates[gate]['color'],
-            'destroy': level_gates[gate]['destroy'],
-            'dx': level_gates[gate]['dx'],
-            'dy': level_gates[gate]['dy'],
             'event': level_gates[gate]['event'],
             'height': level_gates[gate]['height'],
             'interval': level_gates[gate]['interval'],
+            'width': level_gates[gate]['width'],
             'x': level_gates[gate]['x'],
             'y': level_gates[gate]['y'],
-            'width': level_gates[gate]['width'],
           },
           'types': [
             'gate',
