@@ -10,11 +10,12 @@ function load_data(id){
     camera_x = 0;
     camera_y = 0;
     frame_counter = 0;
+    let level_gates = [];
 
     if(id === 1){
 
     }else{
-        var level_gates = [
+        level_gates = [
           {
             'color': '#a1a',
             'change': function(){
@@ -164,7 +165,7 @@ function load_data(id){
         ];
     }
 
-    for(var gate in level_gates){
+    for(let gate in level_gates){
         core_entity_create({
           'properties': {
             'change': level_gates[gate]['change'],
