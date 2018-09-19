@@ -26,6 +26,7 @@ function load_data(id){
 
                 if(core_entity_info['particle']['count'] < core_storage_data['max-particles']){
                     core_entity_create({
+                      'id': id_count,
                       'properties': {
                         'dx': 0,
                         'dy': 1,
@@ -42,6 +43,7 @@ function load_data(id){
                         'particle',
                       ],
                     });
+                    id_count++;
                 }
             },
             'interval': 10,
@@ -165,8 +167,10 @@ function load_data(id){
         ];
     }
 
+
     for(let gate in level_gates){
         core_entity_create({
+          'id': 'gate-' + gate,
           'properties': {
             'change': level_gates[gate]['change'],
             'color': level_gates[gate]['color'],
