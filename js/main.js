@@ -176,7 +176,6 @@ function repo_init(){
         'camera_x': 0,
         'camera_y': 0,
         'frame_counter': 0,
-        'id_count': 0,
       },
       'info': '<input id=test type=button value="Test Level">',
       'keybinds': {
