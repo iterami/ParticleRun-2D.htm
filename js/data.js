@@ -24,7 +24,7 @@ function load_data(id){
                   'todo': 'ceil',
                 });
 
-                if(core_entity_info['particle']['count'] < core_storage_data['max-particles']){
+                if(core_entity_info['particle']['count'] < core_storage_data['particle-max']){
                     core_entity_create({
                       'properties': {
                         'dx': 0,
