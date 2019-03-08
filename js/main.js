@@ -83,15 +83,15 @@ function logic(){
           core_entities[entity]['x'] += core_entities[entity]['dx'];
           core_entities[entity]['y'] += core_entities[entity]['dy'];
 
-          if(!core_rectangle_overlap({
-            'h0': core_entities[entity]['height'],
-            'h1': boundaries['height'],
-            'w0': core_entities[entity]['width'],
-            'w1': boundaries['width'],
-            'x0': core_entities[entity]['x'],
-            'x1': boundaries['x'],
-            'y0': core_entities[entity]['y'],
-            'y1': boundaries['y'],
+          if(!core_cuboid_overlap({
+            'height-0': core_entities[entity]['height'],
+            'height-1': boundaries['height'],
+            'width-0': core_entities[entity]['width'],
+            'width-1': boundaries['width'],
+            'x-0': core_entities[entity]['x'],
+            'x-1': boundaries['x'],
+            'y-0': core_entities[entity]['y'],
+            'y-1': boundaries['y'],
           })){
               core_entity_remove({
                 'entities': [
@@ -117,15 +117,15 @@ function logic(){
               'particle',
             ],
             'todo': function(particle){
-                if(core_rectangle_overlap({
-                  'h0': core_entities[particle]['height'],
-                  'h1': core_entities[gate]['height'],
-                  'w0': core_entities[particle]['width'],
-                  'w1': core_entities[gate]['width'],
-                  'x0': core_entities[particle]['x'],
-                  'x1': core_entities[gate]['x'],
-                  'y0': core_entities[particle]['y'],
-                  'y1': core_entities[gate]['y'],
+                if(core_cuboid_overlap({
+                  'height-0': core_entities[particle]['height'],
+                  'height-1': core_entities[gate]['height'],
+                  'width-0': core_entities[particle]['width'],
+                  'width-1': core_entities[gate]['width'],
+                  'x-0': core_entities[particle]['x'],
+                  'x-1': core_entities[gate]['x'],
+                  'y-0': core_entities[particle]['y'],
+                  'y-1': core_entities[gate]['y'],
                 })){
                     if(core_entities[gate]['event'] !== false){
                         core_entities[gate]['event'](particle);
