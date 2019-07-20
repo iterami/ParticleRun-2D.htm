@@ -165,7 +165,6 @@ function load_data(id){
         ];
     }
 
-
     for(let gate in level_gates){
         core_entity_create({
           'id': 'gate-' + gate,

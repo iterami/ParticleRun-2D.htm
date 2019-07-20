@@ -83,7 +83,7 @@ function logic(){
           core_entities[entity]['x'] += core_entities[entity]['dx'];
           core_entities[entity]['y'] += core_entities[entity]['dy'];
 
-          if(!core_cuboid_overlap({
+          if(!math_cuboid_overlap({
             'height-0': core_entities[entity]['height'],
             'height-1': boundaries['height'],
             'width-0': core_entities[entity]['width'],
@@ -117,7 +117,7 @@ function logic(){
               'particle',
             ],
             'todo': function(particle){
-                if(core_cuboid_overlap({
+                if(math_cuboid_overlap({
                   'height-0': core_entities[particle]['height'],
                   'height-1': core_entities[gate]['height'],
                   'width-0': core_entities[particle]['width'],
