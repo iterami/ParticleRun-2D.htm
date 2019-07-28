@@ -24,8 +24,8 @@ function load_data(id){
                   'todo': 'ceil',
                 });
 
-                if(core_entity_info['particle']['count'] < core_storage_data['particle-max']){
-                    core_entity_create({
+                if(entity_info['particle']['count'] < core_storage_data['particle-max']){
+                    entity_create({
                       'properties': {
                         'dx': 0,
                         'dy': 1,
@@ -51,7 +51,7 @@ function load_data(id){
           {
             'color': '#1a1',
             'event': function(particle){
-                core_entities[particle]['dy'] *= 1.1;
+                entity_entities[particle]['dy'] *= 1.1;
             },
             'width': 60,
             'x': -30,
@@ -65,10 +65,10 @@ function load_data(id){
                   : '#aa1';
             },
             'event': function(particle){
-                core_entities[particle]['dx'] = this.color === '#aa1'
+                entity_entities[particle]['dx'] = this.color === '#aa1'
                   ? 1
                   : -1;
-                core_entities[particle]['dy'] = 1;
+                entity_entities[particle]['dy'] = 1;
             },
             'interval': 55,
             'x': -30,
@@ -83,12 +83,12 @@ function load_data(id){
             },
             'event': function(particle){
                 if(this.color === '#aa1'){
-                    core_entities[particle]['dx'] = 1;
-                    core_entities[particle]['dy'] = -1;
+                    entity_entities[particle]['dx'] = 1;
+                    entity_entities[particle]['dy'] = -1;
 
                 }else{
-                    core_entities[particle]['dx'] = 0;
-                    core_entities[particle]['dy'] = -10;
+                    entity_entities[particle]['dx'] = 0;
+                    entity_entities[particle]['dy'] = -10;
                 }
             },
             'interval': 42,
@@ -105,7 +105,7 @@ function load_data(id){
           {
             'color': '#aaa',
             'event': function(particle){
-                core_entities[particle]['dy'] *= -1;
+                entity_entities[particle]['dy'] *= -1;
             },
             'height': 20,
             'x': -140,
@@ -127,13 +127,13 @@ function load_data(id){
             },
             'event': function(particle){
                 if(this.color === '#1a1'){
-                    core_entities[particle]['dx'] = -1;
+                    entity_entities[particle]['dx'] = -1;
 
                 }else{
-                    core_entities[particle]['dx'] = 5;
+                    entity_entities[particle]['dx'] = 5;
                 }
 
-                core_entities[particle]['dy'] = -1;
+                entity_entities[particle]['dy'] = -1;
             },
             'interval': 23,
             'x': 80,
@@ -154,8 +154,8 @@ function load_data(id){
             },
             'event': function(particle){
                 if(this.color === '#11a'){
-                    core_entities[particle]['dx'] = -3;
-                    core_entities[particle]['dy'] = -5;
+                    entity_entities[particle]['dx'] = -3;
+                    entity_entities[particle]['dy'] = -5;
                 }
             },
             'interval': 23,
@@ -166,7 +166,7 @@ function load_data(id){
     }
 
     for(let gate in level_gates){
-        core_entity_create({
+        entity_create({
           'id': 'gate-' + gate,
           'properties': {
             'change': level_gates[gate]['change'],

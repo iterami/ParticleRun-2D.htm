@@ -22,7 +22,7 @@ function draw_logic(){
     );
 
     // Draw gates and particles.
-    core_group_modify({
+    entity_group_modify({
       'groups': [
         'gate',
         'particle',
@@ -30,14 +30,14 @@ function draw_logic(){
       'todo': function(entity){
           canvas_setproperties({
             'properties': {
-              'fillStyle': core_entities[entity]['color'],
+              'fillStyle': entity_entities[entity]['color'],
             },
           });
           canvas_buffer.fillRect(
-            core_entities[entity]['x'],
-            core_entities[entity]['y'],
-            core_entities[entity]['width'],
-            core_entities[entity]['height']
+            entity_entities[entity]['x'],
+            entity_entities[entity]['y'],
+            entity_entities[entity]['width'],
+            entity_entities[entity]['height']
          );
       },
     });
@@ -75,25 +75,25 @@ function logic(){
         frame_counter = 0;
     }
 
-    core_group_modify({
+    entity_group_modify({
       'groups': [
         'particle',
       ],
       'todo': function(entity){
-          core_entities[entity]['x'] += core_entities[entity]['dx'];
-          core_entities[entity]['y'] += core_entities[entity]['dy'];
+          entity_entities[entity]['x'] += entity_entities[entity]['dx'];
+          entity_entities[entity]['y'] += entity_entities[entity]['dy'];
 
           if(!math_cuboid_overlap({
-            'height-0': core_entities[entity]['height'],
+            'height-0': entity_entities[entity]['height'],
             'height-1': boundaries['height'],
-            'width-0': core_entities[entity]['width'],
+            'width-0': entity_entities[entity]['width'],
             'width-1': boundaries['width'],
-            'x-0': core_entities[entity]['x'],
+            'x-0': entity_entities[entity]['x'],
             'x-1': boundaries['x'],
-            'y-0': core_entities[entity]['y'],
+            'y-0': entity_entities[entity]['y'],
             'y-1': boundaries['y'],
           })){
-              core_entity_remove({
+              entity_remove({
                 'entities': [
                   entity,
                 ],
@@ -102,33 +102,33 @@ function logic(){
       },
     });
 
-    core_group_modify({
+    entity_group_modify({
       'groups': [
         'gate',
       ],
       'todo': function(gate){
-          if(core_entities[gate]['interval'] > 0
-            && frame_counter % core_entities[gate]['interval'] === 0){
-              core_entities[gate]['change']();
+          if(entity_entities[gate]['interval'] > 0
+            && frame_counter % entity_entities[gate]['interval'] === 0){
+              entity_entities[gate]['change']();
           }
 
-          core_group_modify({
+          entity_group_modify({
             'groups': [
               'particle',
             ],
             'todo': function(particle){
                 if(math_cuboid_overlap({
-                  'height-0': core_entities[particle]['height'],
-                  'height-1': core_entities[gate]['height'],
-                  'width-0': core_entities[particle]['width'],
-                  'width-1': core_entities[gate]['width'],
-                  'x-0': core_entities[particle]['x'],
-                  'x-1': core_entities[gate]['x'],
-                  'y-0': core_entities[particle]['y'],
-                  'y-1': core_entities[gate]['y'],
+                  'height-0': entity_entities[particle]['height'],
+                  'height-1': entity_entities[gate]['height'],
+                  'width-0': entity_entities[particle]['width'],
+                  'width-1': entity_entities[gate]['width'],
+                  'x-0': entity_entities[particle]['x'],
+                  'x-1': entity_entities[gate]['x'],
+                  'y-0': entity_entities[particle]['y'],
+                  'y-1': entity_entities[gate]['y'],
                 })){
-                    if(core_entities[gate]['event'] !== false){
-                        core_entities[gate]['event'](particle);
+                    if(entity_entities[gate]['event'] !== false){
+                        entity_entities[gate]['event'](particle);
                     }
                 }
             },
@@ -138,30 +138,13 @@ function logic(){
 
     core_ui_update({
       'ids': {
-        'particles': core_entity_info['particle']['count'] + '/' + core_storage_data['particle-max'],
+        'particles': entity_info['particle']['count'] + '/' + core_storage_data['particle-max'],
       },
     });
 }
 
 function repo_init(){
     core_repo_init({
-      'entities': {
-        'gate': {
-          'properties': {
-            'change': false,
-            'color': '#fff',
-            'event': false,
-            'height': 40,
-            'interval': 0,
-            'width': 40,
-          },
-        },
-        'particle': {
-          'properties': {
-            'color': '#fff',
-          },
-        },
-      },
       'events': {
         'test': {
           'onclick': function(){
@@ -199,6 +182,23 @@ function repo_init(){
         + '<tr><td><input id=scroll-speed><td>Scroll Speed</table>',
       'title': 'ParticleRun-2D.htm',
       'ui': '<span id=particles></span> Particles',
+    });
+    entity_set({
+      'properties': {
+        'change': false,
+        'color': '#fff',
+        'event': false,
+        'height': 40,
+        'interval': 0,
+        'width': 40,
+      },
+      'type': 'gate',
+    });
+    entity_set({
+      'properties': {
+        'color': '#fff',
+      },
+      'type': 'particle',
     });
     canvas_init();
 }
