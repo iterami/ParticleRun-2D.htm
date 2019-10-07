@@ -147,11 +147,7 @@ function repo_init(){
     core_repo_init({
       'events': {
         'test': {
-          'onclick': function(){
-              canvas_setmode({
-                'newgame': true,
-              });
-          },
+          'onclick': core_repo_reset,
         },
       },
       'globals': {
@@ -161,15 +157,8 @@ function repo_init(){
         'frame_counter': 0,
       },
       'info': '<input id=test type=button value="Test Level">',
-      'keybinds': {
-        72: {
-          'todo': function(){
-              camera_x = 0;
-              camera_y = 0;
-          },
-        },
-      },
       'menu': true,
+      'reset': canvas_setmode,
       'storage': {
         'particle-height': 5,
         'particle-max': 1000,
