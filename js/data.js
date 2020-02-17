@@ -165,7 +165,7 @@ function load_data(id){
         ];
     }
 
-    for(let gate in level_gates){
+    for(const gate in level_gates){
         entity_create({
           'id': 'gate-' + gate,
           'properties': {
