@@ -1,6 +1,6 @@
 'use strict';
 
-function draw_logic(){
+function repo_drawlogic(){
     canvas_buffer.save();
 
     canvas_buffer.translate(
@@ -45,7 +45,7 @@ function draw_logic(){
     canvas_buffer.restore();
 }
 
-function logic(){
+function repo_logic(){
     // Move camera down.
     if(core_keys[core_storage_data['move-↓']]['state']
       && camera_y < boundaries['y'] + boundaries['height']){
