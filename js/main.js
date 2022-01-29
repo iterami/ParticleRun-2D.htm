@@ -8,7 +8,6 @@ function repo_drawlogic(){
       canvas_properties['height-half'] - camera_y
     );
 
-    // Draw background.
     canvas_setproperties({
       'properties': {
         'fillStyle': '#111',
@@ -21,7 +20,6 @@ function repo_drawlogic(){
       boundaries['height']
     );
 
-    // Draw gates and particles.
     entity_group_modify({
       'groups': [
         'gate',
@@ -46,25 +44,18 @@ function repo_drawlogic(){
 }
 
 function repo_logic(){
-    // Move camera down.
     if(core_keys[core_storage_data['move-↓']]['state']
       && camera_y < boundaries['y'] + boundaries['height']){
         camera_y += core_storage_data['scroll-speed'];
     }
-
-    // Move camera left.
     if(core_keys[core_storage_data['move-←']]['state']
       && camera_x > boundaries['x']){
         camera_x -= core_storage_data['scroll-speed'];
     }
-
-    // Move camera right.
     if(core_keys[core_storage_data['move-→']]['state']
       && camera_x < boundaries['x'] + boundaries['width']){
         camera_x += core_storage_data['scroll-speed'];
     }
-
-    // Move camera up.
     if(core_keys[core_storage_data['move-↑']]['state']
       && camera_y > boundaries['y']){
         camera_y -= core_storage_data['scroll-speed'];
@@ -172,10 +163,10 @@ function repo_init(){
         'particle-width': 5,
         'scroll-speed': 5,
       },
-      'storage-menu': '<table><tr><td><input id=particle-max><td>Max Particles'
-        + '<tr><td><input id=particle-height><td>Particle Height'
-        + '<tr><td><input id=particle-width><td>Particle Width'
-        + '<tr><td><input id=scroll-speed><td>Scroll Speed</table>',
+      'storage-menu': '<table><tr><td><input id=particle-max min=1 type=number><td>Max Particles'
+        + '<tr><td><input id=particle-height min=1 type=number><td>Particle Height'
+        + '<tr><td><input id=particle-width min=1 type=number><td>Particle Width'
+        + '<tr><td><input id=scroll-speed min=1 type=number><td>Scroll Speed</table>',
       'title': 'ParticleRun-2D.htm',
       'ui': '<span id=particles></span> Particles',
     });
