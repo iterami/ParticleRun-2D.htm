@@ -163,10 +163,10 @@ function repo_init(){
         'particle-width': 5,
         'scroll-speed': 5,
       },
-      'storage-menu': '<table><tr><td><input id=particle-max min=1 type=number><td>Max Particles'
-        + '<tr><td><input id=particle-height min=1 type=number><td>Particle Height'
-        + '<tr><td><input id=particle-width min=1 type=number><td>Particle Width'
-        + '<tr><td><input id=scroll-speed min=1 type=number><td>Scroll Speed</table>',
+      'storage-menu': '<table><tr><td><input id=particle-max min=1 step=any type=number><td>Max Particles'
+        + '<tr><td><input id=particle-height min=1 step=any type=number><td>Particle Height'
+        + '<tr><td><input id=particle-width min=1 step=any type=number><td>Particle Width'
+        + '<tr><td><input id=scroll-speed min=1 step=any type=number><td>Scroll Speed</table>',
       'title': 'ParticleRun-2D.htm',
       'ui': '<span id=particles></span> Particles',
     });
