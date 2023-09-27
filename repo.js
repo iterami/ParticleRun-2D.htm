@@ -186,9 +186,9 @@ function load_data(id){
 }
 
 function repo_drawlogic(){
-    canvas_buffer.save();
+    canvas.save();
 
-    canvas_buffer.translate(
+    canvas.translate(
       canvas_properties['width-half'] - camera_x,
       canvas_properties['height-half'] - camera_y
     );
@@ -198,7 +198,7 @@ function repo_drawlogic(){
         'fillStyle': '#111',
       },
     });
-    canvas_buffer.fillRect(
+    canvas.fillRect(
       boundaries['x'],
       boundaries['y'],
       boundaries['width'],
@@ -216,7 +216,7 @@ function repo_drawlogic(){
               'fillStyle': entity_entities[entity]['color'],
             },
           });
-          canvas_buffer.fillRect(
+          canvas.fillRect(
             entity_entities[entity]['x'],
             entity_entities[entity]['y'],
             entity_entities[entity]['width'],
@@ -225,7 +225,7 @@ function repo_drawlogic(){
       },
     });
 
-    canvas_buffer.restore();
+    canvas.restore();
 }
 
 function repo_logic(){
