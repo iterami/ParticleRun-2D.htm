@@ -229,21 +229,34 @@ function repo_drawlogic(){
 }
 
 function repo_logic(){
-    if(core_keys[core_storage_data['move-↓']]['state']
-      && camera_y < boundaries['y'] + boundaries['height']){
+    if(core_mouse['down-0']){
+        camera_x -= core_mouse['movement-x'];
+        camera_y -= core_mouse['movement-y'];
+    }
+    if(core_keys[core_storage_data['move-↓']]['state']){
         camera_y += core_storage_data['scroll-speed'];
     }
-    if(core_keys[core_storage_data['move-←']]['state']
-      && camera_x > boundaries['x']){
+    if(core_keys[core_storage_data['move-←']]['state']){
         camera_x -= core_storage_data['scroll-speed'];
     }
-    if(core_keys[core_storage_data['move-→']]['state']
-      && camera_x < boundaries['x'] + boundaries['width']){
+    if(core_keys[core_storage_data['move-→']]['state']){
         camera_x += core_storage_data['scroll-speed'];
     }
-    if(core_keys[core_storage_data['move-↑']]['state']
-      && camera_y > boundaries['y']){
+    if(core_keys[core_storage_data['move-↑']]['state']){
         camera_y -= core_storage_data['scroll-speed'];
+    }
+
+    if(camera_x < boundaries['x']){
+        camera_x = boundaries['x'];
+
+    }else if(camera_x > boundaries['x'] + boundaries['width']){
+        camera_x = boundaries['x'] + boundaries['width'];
+    }
+    if(camera_y < boundaries['y']){
+        camera_y = boundaries['y'];
+
+    }else if(camera_y > boundaries['y'] + boundaries['height']){
+        camera_y = boundaries['y'] + boundaries['height'];
     }
 
     frame_counter += 1;
