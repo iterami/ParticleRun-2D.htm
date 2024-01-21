@@ -115,7 +115,7 @@ function load_data(id){
           {
             'color': '#a11',
             'change': function(){
-                if(core_random_boolean(.23){
+                if(core_random_boolean(.23)){
                     return;
                 }
 
@@ -140,7 +140,7 @@ function load_data(id){
           {
             'color': '#a11',
             'change': function(){
-                if(core_random_boolean(.23){
+                if(core_random_boolean(.23)){
                     return;
                 }
 
