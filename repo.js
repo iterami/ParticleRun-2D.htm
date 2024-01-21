@@ -348,7 +348,7 @@ function repo_init(){
         'camera_y': 0,
         'frame_counter': 0,
       },
-      'info': '<input id=test type=button value="Test Level">',
+      'info': '<button id=test type=button>Test Level</button>',
       'menu': true,
       'reset': canvas_setmode,
       'storage': {
