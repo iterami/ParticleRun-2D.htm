@@ -190,9 +190,7 @@ function repo_drawlogic(){
     );
 
     canvas_setproperties({
-      'properties': {
-        'fillStyle': '#111',
-      },
+      'fillStyle': '#111',
     });
     canvas.fillRect(
       boundaries['x'],
@@ -208,9 +206,7 @@ function repo_drawlogic(){
       ],
       'todo': function(entity){
           canvas_setproperties({
-            'properties': {
-              'fillStyle': entity_entities[entity]['color'],
-            },
+            'fillStyle': entity_entities[entity]['color'],
           });
           canvas.fillRect(
             entity_entities[entity]['x'],
