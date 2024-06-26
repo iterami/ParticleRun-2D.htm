@@ -164,16 +164,7 @@ function load_data(id){
     for(const gate in level_gates){
         entity_create({
           'id': 'gate-' + gate,
-          'properties': {
-            'change': level_gates[gate]['change'],
-            'color': level_gates[gate]['color'],
-            'event': level_gates[gate]['event'],
-            'height': level_gates[gate]['height'],
-            'interval': level_gates[gate]['interval'],
-            'width': level_gates[gate]['width'],
-            'x': level_gates[gate]['x'],
-            'y': level_gates[gate]['y'],
-          },
+          'properties': level_gates[gate],
           'types': [
             'gate',
           ],
@@ -353,7 +344,7 @@ function repo_init(){
         'particle-width': 5,
         'scroll-speed': 5,
       },
-      'storage-menu': '<table><tr><td><input class=mini id=particle-max min=1 step=any type=number><td>Max Particles'
+      'storage-menu': '<table><tr><td><input class=mini id=particle-max min=1 step=1 type=number><td>Max Particles'
         + '<tr><td><input class=mini id=particle-height min=1 step=any type=number><td>Particle Height'
         + '<tr><td><input class=mini id=particle-width min=1 step=any type=number><td>Particle Width'
         + '<tr><td><input class=mini id=scroll-speed min=1 step=any type=number><td>Scroll Speed</table>',
