@@ -51,7 +51,7 @@ function load_data(id){
           {
             'color': '#1a1',
             'event': function(particle){
-                entity_entities[particle]['dy'] *= 1.1;
+                particle['dy'] *= 1.1;
             },
             'width': 60,
             'x': -30,
@@ -65,10 +65,10 @@ function load_data(id){
                   : '#aa1';
             },
             'event': function(particle){
-                entity_entities[particle]['dx'] = this.color === '#aa1'
+                particle['dx'] = this.color === '#aa1'
                   ? 1
                   : -1;
-                entity_entities[particle]['dy'] = 1;
+                particle['dy'] = 1;
             },
             'interval': 55,
             'x': -30,
@@ -83,12 +83,12 @@ function load_data(id){
             },
             'event': function(particle){
                 if(this.color === '#aa1'){
-                    entity_entities[particle]['dx'] = 1;
-                    entity_entities[particle]['dy'] = -1;
+                    particle['dx'] = 1;
+                    particle['dy'] = -1;
 
                 }else{
-                    entity_entities[particle]['dx'] = 0;
-                    entity_entities[particle]['dy'] = -10;
+                    particle['dx'] = 0;
+                    particle['dy'] = -10;
                 }
             },
             'interval': 42,
@@ -105,7 +105,7 @@ function load_data(id){
           {
             'color': '#aaa',
             'event': function(particle){
-                entity_entities[particle]['dy'] *= -1;
+                particle['dy'] *= -1;
             },
             'height': 20,
             'x': -140,
@@ -125,13 +125,13 @@ function load_data(id){
             },
             'event': function(particle){
                 if(this.color === '#1a1'){
-                    entity_entities[particle]['dx'] = -1;
+                    particle['dx'] = -1;
 
                 }else{
-                    entity_entities[particle]['dx'] = 5;
+                    particle['dx'] = 5;
                 }
 
-                entity_entities[particle]['dy'] = -1;
+                particle['dy'] = -1;
             },
             'interval': 23,
             'x': 80,
@@ -150,8 +150,8 @@ function load_data(id){
             },
             'event': function(particle){
                 if(this.color === '#11a'){
-                    entity_entities[particle]['dx'] = -3;
-                    entity_entities[particle]['dy'] = -5;
+                    particle['dx'] = -3;
+                    particle['dy'] = -5;
                 }
             },
             'interval': 23,
@@ -197,13 +197,13 @@ function repo_drawlogic(){
       ],
       'todo': function(entity){
           canvas_setproperties({
-            'fillStyle': entity_entities[entity]['color'],
+            'fillStyle': entity['color'],
           });
           canvas.fillRect(
-            entity_entities[entity]['x'],
-            entity_entities[entity]['y'],
-            entity_entities[entity]['width'],
-            entity_entities[entity]['height']
+            entity['x'],
+            entity['y'],
+            entity['width'],
+            entity['height']
          );
       },
     });
@@ -252,22 +252,22 @@ function repo_logic(){
         'particle',
       ],
       'todo': function(entity){
-          entity_entities[entity]['x'] += entity_entities[entity]['dx'];
-          entity_entities[entity]['y'] += entity_entities[entity]['dy'];
+          entity['x'] += entity['dx'];
+          entity['y'] += entity['dy'];
 
           if(!math_cuboid_overlap({
-            'height-0': entity_entities[entity]['height'],
+            'height-0': entity['height'],
             'height-1': boundaries['height'],
-            'width-0': entity_entities[entity]['width'],
+            'width-0': entity['width'],
             'width-1': boundaries['width'],
-            'x-0': entity_entities[entity]['x'],
+            'x-0': entity['x'],
             'x-1': boundaries['x'],
-            'y-0': entity_entities[entity]['y'],
+            'y-0': entity['y'],
             'y-1': boundaries['y'],
           })){
               entity_remove({
                 'entities': [
-                  entity,
+                  entity['id'],
                 ],
               });
           }
@@ -279,9 +279,9 @@ function repo_logic(){
         'gate',
       ],
       'todo': function(gate){
-          if(entity_entities[gate]['interval'] > 0
-            && frame_counter % entity_entities[gate]['interval'] === 0){
-              entity_entities[gate]['change']();
+          if(gate['interval'] > 0
+            && frame_counter % gate['interval'] === 0){
+              gate['change']();
           }
 
           entity_group_modify({
@@ -290,17 +290,17 @@ function repo_logic(){
             ],
             'todo': function(particle){
                 if(math_cuboid_overlap({
-                  'height-0': entity_entities[particle]['height'],
-                  'height-1': entity_entities[gate]['height'],
-                  'width-0': entity_entities[particle]['width'],
-                  'width-1': entity_entities[gate]['width'],
-                  'x-0': entity_entities[particle]['x'],
-                  'x-1': entity_entities[gate]['x'],
-                  'y-0': entity_entities[particle]['y'],
-                  'y-1': entity_entities[gate]['y'],
+                  'height-0': particle['height'],
+                  'height-1': gate['height'],
+                  'width-0': particle['width'],
+                  'width-1': gate['width'],
+                  'x-0': particle['x'],
+                  'x-1': gate['x'],
+                  'y-0': particle['y'],
+                  'y-1': gate['y'],
                 })){
-                    if(entity_entities[gate]['event'] !== false){
-                        entity_entities[gate]['event'](particle);
+                    if(gate['event'] !== false){
+                        gate['event'](particle);
                     }
                 }
             },
