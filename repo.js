@@ -318,7 +318,7 @@ function repo_logic(){
 function repo_escape(){
     if(!entity_entities['gate-0']
       && !core_menu_open){
-        core_repo_reset();
+        canvas_setmode();
     }
 }
 
@@ -326,7 +326,7 @@ function repo_init(){
     core_repo_init({
       'events': {
         'test': {
-          'onclick': core_repo_reset,
+          'onclick': canvas_setmode,
         },
       },
       'globals': {
@@ -337,13 +337,13 @@ function repo_init(){
       },
       'info': '<button id=test type=button>Test Level</button>',
       'menu': true,
-      'reset': canvas_setmode,
       'storage': {
         'particle-height': 5,
         'particle-max': 1000,
         'particle-width': 5,
         'scroll-speed': 5,
       },
+      'storage-controls': true,
       'storage-menu': '<table><tr><td><input class=mini id=particle-max min=1 step=1 type=number><td>Max Particles'
         + '<tr><td><input class=mini id=particle-height min=1 step=any type=number><td>Particle Height'
         + '<tr><td><input class=mini id=particle-width min=1 step=any type=number><td>Particle Width'
