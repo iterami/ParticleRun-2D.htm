@@ -337,6 +337,7 @@ function repo_init(){
       },
       'info': '<button id=test type=button>Test Level</button>',
       'menu': true,
+      'mousebinds': {},
       'storage': {
         'particle-height': 5,
         'particle-max': 1000,
