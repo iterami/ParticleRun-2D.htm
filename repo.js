@@ -324,6 +324,13 @@ function repo_escape(){
 
 function repo_init(){
     core_repo_init({
+      'beforeunload': {
+        'todo': function(event){
+            if(entity_entities['gate-0']){
+                event.preventDefault();
+            }
+        },
+      },
       'events': {
         'test': {
           'onclick': canvas_setmode,
