@@ -1,14 +1,7 @@
 'use strict';
 
 function load_data(id){
-    boundaries = {
-      'height': 500,
-      'width': 500,
-      'x': -250,
-      'y': -300,
-    };
-    camera_x = 0;
-    camera_y = 0;
+    reset_camera();
     frame_counter = 0;
     let level_gates = [];
 
@@ -180,16 +173,6 @@ function repo_drawlogic(){
       canvas_properties['height-half'] - camera_y
     );
 
-    canvas_setproperties({
-      'fillStyle': '#111',
-    });
-    canvas.fillRect(
-      boundaries['x'],
-      boundaries['y'],
-      boundaries['width'],
-      boundaries['height']
-    );
-
     entity_group_modify({
       'groups': [
         'gate',
@@ -211,6 +194,77 @@ function repo_drawlogic(){
     canvas.restore();
 }
 
+function repo_escape(){
+    if(!entity_entities['gate-0']
+      && !core_menu_open){
+        canvas_setmode();
+    }
+}
+
+function repo_init(){
+    core_repo_init({
+      'beforeunload': {
+        'todo': function(event){
+            if(entity_entities['gate-0']){
+                event.preventDefault();
+            }
+        },
+      },
+      'events': {
+        'reset-camera': {
+          'onclick': function(){
+              reset_camera();
+              core_escape();
+          },
+        },
+        'test': {
+          'onclick': canvas_setmode,
+        },
+      },
+      'globals': {
+        'camera_x': 0,
+        'camera_y': 0,
+        'edge_x': 250,
+        'edge_y': 300,
+        'frame_counter': 0,
+      },
+      'info': '<button id=test type=button>Test Level</button><button id=reset-camera type=button>Reset Camera</button>',
+      'menu': true,
+      'pointerbinds': {},
+      'storage': {
+        'particle-height': 5,
+        'particle-max': 1000,
+        'particle-width': 5,
+        'scroll-speed': 5,
+      },
+      'storage-controls': true,
+      'storage-menu': '<table><tr><td><input class=mini id=particle-max min=1 step=1 type=number><td>Max Particles'
+        + '<tr><td><input class=mini id=particle-height min=1 step=any type=number><td>Particle Height'
+        + '<tr><td><input class=mini id=particle-width min=1 step=any type=number><td>Particle Width'
+        + '<tr><td><input class=mini id=scroll-speed min=1 step=any type=number><td>Scroll Speed</table>',
+      'title': 'ParticleRun-2D.htm',
+      'ui': '<span id=particles></span> Particles',
+    });
+    entity_set({
+      'properties': {
+        'change': false,
+        'color': '#fff',
+        'event': false,
+        'height': 40,
+        'interval': 0,
+        'width': 40,
+      },
+      'type': 'gate',
+    });
+    entity_set({
+      'properties': {
+        'color': '#fff',
+      },
+      'type': 'particle',
+    });
+    canvas_init();
+}
+
 function repo_logic(){
     if(core_pointer['down-0']){
         camera_x -= core_pointer['movement-x'];
@@ -229,19 +283,6 @@ function repo_logic(){
         camera_y -= core_storage_data['scroll-speed'];
     }
 
-    if(camera_x < boundaries['x']){
-        camera_x = boundaries['x'];
-
-    }else if(camera_x > boundaries['x'] + boundaries['width']){
-        camera_x = boundaries['x'] + boundaries['width'];
-    }
-    if(camera_y < boundaries['y']){
-        camera_y = boundaries['y'];
-
-    }else if(camera_y > boundaries['y'] + boundaries['height']){
-        camera_y = boundaries['y'] + boundaries['height'];
-    }
-
     frame_counter += 1;
     if(frame_counter > 99){
         frame_counter = 0;
@@ -255,16 +296,10 @@ function repo_logic(){
           entity['x'] += entity['dx'];
           entity['y'] += entity['dy'];
 
-          if(!math_cuboid_overlap({
-            'height-0': entity['height'],
-            'height-1': boundaries['height'],
-            'width-0': entity['width'],
-            'width-1': boundaries['width'],
-            'x-0': entity['x'],
-            'x-1': boundaries['x'],
-            'y-0': entity['y'],
-            'y-1': boundaries['y'],
-          })){
+          if(entity['x'] < -edge_x
+            || entity['x'] > edge_x
+            || entity['y'] < -edge_y
+            || entity['y'] > edge_y){
               entity_remove({
                 'entities': [
                   entity['id'],
@@ -315,66 +350,7 @@ function repo_logic(){
     });
 }
 
-function repo_escape(){
-    if(!entity_entities['gate-0']
-      && !core_menu_open){
-        canvas_setmode();
-    }
-}
-
-function repo_init(){
-    core_repo_init({
-      'beforeunload': {
-        'todo': function(event){
-            if(entity_entities['gate-0']){
-                event.preventDefault();
-            }
-        },
-      },
-      'events': {
-        'test': {
-          'onclick': canvas_setmode,
-        },
-      },
-      'globals': {
-        'boundaries': {},
-        'camera_x': 0,
-        'camera_y': 0,
-        'frame_counter': 0,
-      },
-      'info': '<button id=test type=button>Test Level</button>',
-      'menu': true,
-      'pointerbinds': {},
-      'storage': {
-        'particle-height': 5,
-        'particle-max': 1000,
-        'particle-width': 5,
-        'scroll-speed': 5,
-      },
-      'storage-controls': true,
-      'storage-menu': '<table><tr><td><input class=mini id=particle-max min=1 step=1 type=number><td>Max Particles'
-        + '<tr><td><input class=mini id=particle-height min=1 step=any type=number><td>Particle Height'
-        + '<tr><td><input class=mini id=particle-width min=1 step=any type=number><td>Particle Width'
-        + '<tr><td><input class=mini id=scroll-speed min=1 step=any type=number><td>Scroll Speed</table>',
-      'title': 'ParticleRun-2D.htm',
-      'ui': '<span id=particles></span> Particles',
-    });
-    entity_set({
-      'properties': {
-        'change': false,
-        'color': '#fff',
-        'event': false,
-        'height': 40,
-        'interval': 0,
-        'width': 40,
-      },
-      'type': 'gate',
-    });
-    entity_set({
-      'properties': {
-        'color': '#fff',
-      },
-      'type': 'particle',
-    });
-    canvas_init();
+function reset_camera(){
+    camera_x = 0;
+    camera_y = 0;
 }
