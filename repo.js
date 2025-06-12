@@ -12,10 +12,7 @@ function load_data(id){
           {
             'color': '#a1a',
             'change': function(){
-                this.interval = core_random_integer({
-                  'max': 99,
-                  'todo': 'ceil',
-                });
+                this.interval = core_random_integer(99) + 1;
 
                 if(entity_info['particle']['count'] < core_storage_data['particle-max']){
                     entity_create({
@@ -24,12 +21,8 @@ function load_data(id){
                         'dy': 1,
                         'height': core_storage_data['particle-height'],
                         'width': core_storage_data['particle-width'],
-                        'x': this['x'] + core_random_integer({
-                          'max': this['width'],
-                        }) - 2,
-                        'y': this['y'] + core_random_integer({
-                          'max': this['width'],
-                        }) - 2,
+                        'x': this['x'] + core_random_integer(this['width']) - 2,
+                        'y': this['y'] + core_random_integer(this['width']) - 2,
                       },
                       'types': [
                         'particle',
