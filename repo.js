@@ -320,14 +320,14 @@ function repo_logic(){
             ],
             'todo': function(particle){
                 if(math_cuboid_overlap({
-                  'height-0': particle['height'],
-                  'height-1': gate['height'],
-                  'width-0': particle['width'],
-                  'width-1': gate['width'],
-                  'x-0': particle['x'],
-                  'x-1': gate['x'],
-                  'y-0': particle['y'],
-                  'y-1': gate['y'],
+                  'height0': particle['height'],
+                  'height1': gate['height'],
+                  'width0': particle['width'],
+                  'width1': gate['width'],
+                  'x0': particle['x'],
+                  'x1': gate['x'],
+                  'y0': particle['y'],
+                  'y1': gate['y'],
                 })){
                     if(gate['event'] !== false){
                         gate['event'](particle);
