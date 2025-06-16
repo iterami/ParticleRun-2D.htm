@@ -14,15 +14,15 @@ function load_data(id){
             'change': function(){
                 this.interval = core_random_integer(99) + 1;
 
-                if(entity_info['particle']['count'] < core_storage_data['particle-max']){
+                if(entity_info.particle.count < core_storage_data.particle_max){
                     entity_create({
                       'properties': {
                         'dx': 0,
                         'dy': 1,
-                        'height': core_storage_data['particle-height'],
-                        'width': core_storage_data['particle-width'],
-                        'x': this['x'] + core_random_integer(this['width']) - 2,
-                        'y': this['y'] + core_random_integer(this['width']) - 2,
+                        'height': core_storage_data.particle_height,
+                        'width': core_storage_data.particle_width,
+                        'x': this.x + core_random_integer(this.width) - 2,
+                        'y': this.y + core_random_integer(this.width) - 2,
                       },
                       'types': [
                         'particle',
@@ -37,7 +37,7 @@ function load_data(id){
           {
             'color': '#1a1',
             'event': function(particle){
-                particle['dy'] *= 1.1;
+                particle.dy *= 1.1;
             },
             'width': 60,
             'x': -30,
@@ -51,10 +51,10 @@ function load_data(id){
                   : '#aa1';
             },
             'event': function(particle){
-                particle['dx'] = this.color === '#aa1'
+                particle.dx = this.color === '#aa1'
                   ? 1
                   : -1;
-                particle['dy'] = 1;
+                particle.dy = 1;
             },
             'interval': 55,
             'x': -30,
@@ -69,12 +69,12 @@ function load_data(id){
             },
             'event': function(particle){
                 if(this.color === '#aa1'){
-                    particle['dx'] = 1;
-                    particle['dy'] = -1;
+                    particle.dx = 1;
+                    particle.dy = -1;
 
                 }else{
-                    particle['dx'] = 0;
-                    particle['dy'] = -10;
+                    particle.dx = 0;
+                    particle.dy = -10;
                 }
             },
             'interval': 42,
@@ -91,7 +91,7 @@ function load_data(id){
           {
             'color': '#aaa',
             'event': function(particle){
-                particle['dy'] *= -1;
+                particle.dy *= -1;
             },
             'height': 20,
             'x': -140,
@@ -111,13 +111,13 @@ function load_data(id){
             },
             'event': function(particle){
                 if(this.color === '#1a1'){
-                    particle['dx'] = -1;
+                    particle.dx = -1;
 
                 }else{
-                    particle['dx'] = 5;
+                    particle.dx = 5;
                 }
 
-                particle['dy'] = -1;
+                particle.dy = -1;
             },
             'interval': 23,
             'x': 80,
@@ -136,8 +136,8 @@ function load_data(id){
             },
             'event': function(particle){
                 if(this.color === '#11a'){
-                    particle['dx'] = -3;
-                    particle['dy'] = -5;
+                    particle.dx = -3;
+                    particle.dy = -5;
                 }
             },
             'interval': 23,
@@ -149,7 +149,7 @@ function load_data(id){
 
     for(const gate in level_gates){
         entity_create({
-          'id': 'gate-' + gate,
+          'id': 'gate_' + gate,
           'properties': level_gates[gate],
           'types': [
             'gate',
@@ -162,8 +162,8 @@ function repo_drawlogic(){
     canvas.save();
 
     canvas.translate(
-      canvas_properties['width-half'] - camera_x,
-      canvas_properties['height-half'] - camera_y
+      canvas_properties.width_half - camera_x,
+      canvas_properties.height_half - camera_y
     );
 
     entity_group_modify({
@@ -173,13 +173,13 @@ function repo_drawlogic(){
       ],
       'todo': function(entity){
           canvas_setproperties({
-            'fillStyle': entity['color'],
+            'fillStyle': entity.color,
           });
           canvas.fillRect(
-            entity['x'],
-            entity['y'],
-            entity['width'],
-            entity['height']
+            entity.x,
+            entity.y,
+            entity.width,
+            entity.height
          );
       },
     });
@@ -188,7 +188,7 @@ function repo_drawlogic(){
 }
 
 function repo_escape(){
-    if(!entity_entities['gate-0']
+    if(!entity_entities.gate_0
       && !core_menu_open){
         canvas_setmode();
     }
@@ -198,13 +198,13 @@ function repo_init(){
     core_repo_init({
       'beforeunload': {
         'todo': function(event){
-            if(entity_entities['gate-0']){
+            if(entity_entities.gate_0){
                 event.preventDefault();
             }
         },
       },
       'events': {
-        'reset-camera': {
+        'reset_camera': {
           'onclick': function(){
               reset_camera();
               core_escape();
@@ -221,20 +221,20 @@ function repo_init(){
         'edge_y': 300,
         'frame_counter': 0,
       },
-      'info': '<button id=test type=button>Test Level</button><button id=reset-camera type=button>Reset Camera</button>',
+      'info': '<button id=test type=button>Test Level</button><button id=reset_camera type=button>Reset Camera</button>',
       'menu': true,
       'pointerbinds': {},
       'storage': {
-        'particle-height': 5,
-        'particle-max': 1000,
-        'particle-width': 5,
-        'scroll-speed': 5,
+        'particle_height': 5,
+        'particle_max': 1000,
+        'particle_width': 5,
+        'scroll_speed': 5,
       },
       'storage-controls': true,
-      'storage-menu': '<table><tr><td><input class=mini id=particle-max min=1 step=1 type=number><td>Max Particles'
-        + '<tr><td><input class=mini id=particle-height min=1 step=any type=number><td>Particle Height'
-        + '<tr><td><input class=mini id=particle-width min=1 step=any type=number><td>Particle Width'
-        + '<tr><td><input class=mini id=scroll-speed min=1 step=any type=number><td>Scroll Speed</table>',
+      'storage-menu': '<table><tr><td><input class=mini id=particle_max min=1 step=1 type=number><td>Max Particles'
+        + '<tr><td><input class=mini id=particle_height min=1 step=any type=number><td>Particle Height'
+        + '<tr><td><input class=mini id=particle_width min=1 step=any type=number><td>Particle Width'
+        + '<tr><td><input class=mini id=scroll_speed min=1 step=any type=number><td>Scroll Speed</table>',
       'title': 'ParticleRun-2D.htm',
       'ui': '<span id=particles></span> Particles',
     });
@@ -265,17 +265,17 @@ function repo_logic(){
         camera_x -= core_pointer['movement-x'];
         camera_y -= core_pointer['movement-y'];
     }
-    if(core_keys[core_storage_data['move-↓']]['state']){
-        camera_y += core_storage_data['scroll-speed'];
+    if(core_keys[core_storage_data['move-↓']].state){
+        camera_y += core_storage_data.scroll_speed;
     }
-    if(core_keys[core_storage_data['move-←']]['state']){
-        camera_x -= core_storage_data['scroll-speed'];
+    if(core_keys[core_storage_data['move-←']].state){
+        camera_x -= core_storage_data.scroll_speed;
     }
-    if(core_keys[core_storage_data['move-→']]['state']){
-        camera_x += core_storage_data['scroll-speed'];
+    if(core_keys[core_storage_data['move-→']].state){
+        camera_x += core_storage_data.scroll_speed;
     }
-    if(core_keys[core_storage_data['move-↑']]['state']){
-        camera_y -= core_storage_data['scroll-speed'];
+    if(core_keys[core_storage_data['move-↑']].state){
+        camera_y -= core_storage_data.scroll_speed;
     }
 
     frame_counter += 1;
@@ -288,16 +288,16 @@ function repo_logic(){
         'particle',
       ],
       'todo': function(entity){
-          entity['x'] += entity['dx'];
-          entity['y'] += entity['dy'];
+          entity.x += entity.dx;
+          entity.y += entity.dy;
 
-          if(entity['x'] < -edge_x
-            || entity['x'] > edge_x
-            || entity['y'] < -edge_y
-            || entity['y'] > edge_y){
+          if(entity.x < -edge_x
+            || entity.x > edge_x
+            || entity.y < -edge_y
+            || entity.y > edge_y){
               entity_remove({
                 'entities': [
-                  entity['id'],
+                  entity.id,
                 ],
               });
           }
@@ -309,9 +309,9 @@ function repo_logic(){
         'gate',
       ],
       'todo': function(gate){
-          if(gate['interval'] > 0
-            && frame_counter % gate['interval'] === 0){
-              gate['change']();
+          if(gate.interval > 0
+            && frame_counter % gate.interval === 0){
+              gate.change();
           }
 
           entity_group_modify({
@@ -320,17 +320,17 @@ function repo_logic(){
             ],
             'todo': function(particle){
                 if(math_cuboid_overlap({
-                  'height0': particle['height'],
-                  'height1': gate['height'],
-                  'width0': particle['width'],
-                  'width1': gate['width'],
-                  'x0': particle['x'],
-                  'x1': gate['x'],
-                  'y0': particle['y'],
-                  'y1': gate['y'],
+                  'height0': particle.height,
+                  'height1': gate.height,
+                  'width0': particle.width,
+                  'width1': gate.width,
+                  'x0': particle.x,
+                  'x1': gate.x,
+                  'y0': particle.y,
+                  'y1': gate.y,
                 })){
-                    if(gate['event'] !== false){
-                        gate['event'](particle);
+                    if(gate.event !== false){
+                        gate.event(particle);
                     }
                 }
             },
@@ -340,7 +340,7 @@ function repo_logic(){
 
     core_ui_update({
       'ids': {
-        'particles': entity_info['particle']['count'] + '/' + core_storage_data['particle-max'],
+        'particles': entity_info.particle.count + '/' + core_storage_data.particle_max,
       },
     });
 }
