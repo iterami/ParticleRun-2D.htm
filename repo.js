@@ -231,7 +231,7 @@ function repo_init(){
         'scroll_speed': 5,
       },
       'storage_controls': true,
-      'storage-menu': '<table><tr><td><input class=mini id=particle_max min=1 step=1 type=number><td>Max Particles'
+      'storage_menu': '<table><tr><td><input class=mini id=particle_max min=1 step=1 type=number><td>Max Particles'
         + '<tr><td><input class=mini id=particle_height min=1 step=any type=number><td>Particle Height'
         + '<tr><td><input class=mini id=particle_width min=1 step=any type=number><td>Particle Width'
         + '<tr><td><input class=mini id=scroll_speed min=1 step=any type=number><td>Scroll Speed</table>',
