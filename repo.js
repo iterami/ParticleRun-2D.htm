@@ -223,7 +223,16 @@ function repo_init(){
       },
       'info': '<button id=test type=button>Test Level</button><button id=reset_camera type=button>Reset Camera</button>',
       'menu': true,
-      'pointerbinds': {},
+      'pointerbinds': {
+        'pointermove': {
+          'todo': function(){
+              if(core_pointer.down_0){
+                  camera_x -= core_pointer.movement_x;
+                  camera_y -= core_pointer.movement_y;
+              }
+          },
+        },
+      },
       'storage': {
         'particle_height': 5,
         'particle_max': 1000,
@@ -261,10 +270,6 @@ function repo_init(){
 }
 
 function repo_logic(){
-    if(core_pointer.down_0){
-        camera_x -= core_pointer.movement_x;
-        camera_y -= core_pointer.movement_y;
-    }
     if(core_keys[core_storage_data.move_down].state){
         camera_y += core_storage_data.scroll_speed;
     }
