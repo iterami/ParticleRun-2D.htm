@@ -199,6 +199,7 @@ function repo_init(){
       'beforeunload': {
         'todo': function(event){
             if(entity_entities.gate_0){
+                core_escape(true);
                 event.preventDefault();
             }
         },
