@@ -1,6 +1,118 @@
 'use strict';
 
-function load_data(id){
+function repo_drawlogic(){
+    canvas.save();
+
+    canvas.translate(
+      canvas_properties.width_half - camera_x,
+      canvas_properties.height_half - camera_y
+    );
+
+    entity_group_modify({
+      'groups': [
+        'gate',
+        'particle',
+      ],
+      'todo': function(entity){
+          canvas_setproperties({
+            'fillStyle': entity.color,
+          });
+          canvas.fillRect(
+            entity.x,
+            entity.y,
+            entity.width,
+            entity.height
+         );
+      },
+    });
+
+    canvas.restore();
+}
+
+function repo_escape(){
+    if(!entity_entities.gate_0
+      && !core_menu_open){
+        canvas_setmode();
+    }
+}
+
+function repo_init(){
+    core_repo_init({
+      'beforeunload': {
+        'todo': function(event){
+            if(entity_entities.gate_0){
+                core_escape(true);
+                event.preventDefault();
+            }
+        },
+      },
+      'events': {
+        'reset_camera': {
+          'onclick': function(){
+              reset_camera();
+              core_escape();
+          },
+        },
+        'test': {
+          'onclick': canvas_setmode,
+        },
+      },
+      'globals': {
+        'camera_x': 0,
+        'camera_y': 0,
+        'edge_x': 250,
+        'edge_y': 300,
+        'frame_counter': 0,
+      },
+      'info': '<button id=test type=button>Test Level</button><button id=reset_camera type=button>Reset Camera</button>',
+      'menu': true,
+      'pointerbinds': {
+        'pointermove': {
+          'todo': function(){
+              if(core_pointer.down_0){
+                  camera_x -= core_pointer.movement_x;
+                  camera_y -= core_pointer.movement_y;
+              }
+          },
+        },
+      },
+      'storage': {
+        'particle_height': 5,
+        'particle_max': 1000,
+        'particle_width': 5,
+        'scroll_speed': 5,
+      },
+      'storage_controls': true,
+      'storage_menu': '<table><tr><td><input class=mini id=particle_max min=1 step=1 type=number><td>Max Particles'
+        + '<tr><td><input class=mini id=particle_height min=1 step=any type=number><td>Particle Height'
+        + '<tr><td><input class=mini id=particle_width min=1 step=any type=number><td>Particle Width'
+        + '<tr><td><input class=mini id=scroll_speed min=1 step=any type=number><td>Scroll Speed</table>',
+      'title': 'ParticleRun-2D.htm',
+      'ui': '<span id=particles></span> Particles',
+    });
+    entity_set({
+      'properties': {
+        'change': false,
+        'color': '#fff',
+        'event': false,
+        'height': 40,
+        'interval': 0,
+        'width': 40,
+      },
+      'type': 'gate',
+    });
+    entity_set({
+      'properties': {
+        'color': '#fff',
+      },
+      'type': 'particle',
+    });
+    canvas_init({
+      'cursor': 'pointer',
+    });
+}
+
+function repo_load(id){
     reset_camera();
     frame_counter = 0;
     let level_gates = [];
@@ -156,118 +268,6 @@ function load_data(id){
           ],
         });
     }
-}
-
-function repo_drawlogic(){
-    canvas.save();
-
-    canvas.translate(
-      canvas_properties.width_half - camera_x,
-      canvas_properties.height_half - camera_y
-    );
-
-    entity_group_modify({
-      'groups': [
-        'gate',
-        'particle',
-      ],
-      'todo': function(entity){
-          canvas_setproperties({
-            'fillStyle': entity.color,
-          });
-          canvas.fillRect(
-            entity.x,
-            entity.y,
-            entity.width,
-            entity.height
-         );
-      },
-    });
-
-    canvas.restore();
-}
-
-function repo_escape(){
-    if(!entity_entities.gate_0
-      && !core_menu_open){
-        canvas_setmode();
-    }
-}
-
-function repo_init(){
-    core_repo_init({
-      'beforeunload': {
-        'todo': function(event){
-            if(entity_entities.gate_0){
-                core_escape(true);
-                event.preventDefault();
-            }
-        },
-      },
-      'events': {
-        'reset_camera': {
-          'onclick': function(){
-              reset_camera();
-              core_escape();
-          },
-        },
-        'test': {
-          'onclick': canvas_setmode,
-        },
-      },
-      'globals': {
-        'camera_x': 0,
-        'camera_y': 0,
-        'edge_x': 250,
-        'edge_y': 300,
-        'frame_counter': 0,
-      },
-      'info': '<button id=test type=button>Test Level</button><button id=reset_camera type=button>Reset Camera</button>',
-      'menu': true,
-      'pointerbinds': {
-        'pointermove': {
-          'todo': function(){
-              if(core_pointer.down_0){
-                  camera_x -= core_pointer.movement_x;
-                  camera_y -= core_pointer.movement_y;
-              }
-          },
-        },
-      },
-      'storage': {
-        'particle_height': 5,
-        'particle_max': 1000,
-        'particle_width': 5,
-        'scroll_speed': 5,
-      },
-      'storage_controls': true,
-      'storage_menu': '<table><tr><td><input class=mini id=particle_max min=1 step=1 type=number><td>Max Particles'
-        + '<tr><td><input class=mini id=particle_height min=1 step=any type=number><td>Particle Height'
-        + '<tr><td><input class=mini id=particle_width min=1 step=any type=number><td>Particle Width'
-        + '<tr><td><input class=mini id=scroll_speed min=1 step=any type=number><td>Scroll Speed</table>',
-      'title': 'ParticleRun-2D.htm',
-      'ui': '<span id=particles></span> Particles',
-    });
-    entity_set({
-      'properties': {
-        'change': false,
-        'color': '#fff',
-        'event': false,
-        'height': 40,
-        'interval': 0,
-        'width': 40,
-      },
-      'type': 'gate',
-    });
-    entity_set({
-      'properties': {
-        'color': '#fff',
-      },
-      'type': 'particle',
-    });
-    canvas_init({
-      'cursor': 'pointer',
-    });
 }
 
 function repo_logic(){
