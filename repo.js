@@ -1,5 +1,62 @@
 'use strict';
 
+function draw_entity(entity){
+    canvas_setproperties({
+      'fillStyle': entity.color,
+    });
+    canvas.fillRect(
+      entity.x,
+      entity.y,
+      entity.width,
+      entity.height
+   );
+}
+
+function handle_gate(gate){
+    if(gate.interval > 0
+      && frame_counter % gate.interval === 0){
+        gate.change();
+    }
+
+    entity_group_modify({
+      'groups': [
+        'particle',
+      ],
+      'todo': function(particle){
+          if(math_cuboid_overlap({
+            'height0': particle.height,
+            'height1': gate.height,
+            'width0': particle.width,
+            'width1': gate.width,
+            'x0': particle.x,
+            'x1': gate.x,
+            'y0': particle.y,
+            'y1': gate.y,
+          })){
+              if(gate.event !== false){
+                  gate.event(particle);
+              }
+          }
+      },
+  });
+}
+
+function move_particle(entity){
+    entity.x += entity.dx;
+    entity.y += entity.dy;
+
+    if(entity.x < -edge_x
+      || entity.x > edge_x
+      || entity.y < -edge_y
+      || entity.y > edge_y){
+        entity_remove({
+          'entities': [
+            entity.id,
+          ],
+        });
+    }
+}
+
 function repo_drawlogic(){
     canvas.save();
 
@@ -13,17 +70,7 @@ function repo_drawlogic(){
         'gate',
         'particle',
       ],
-      'todo': function(entity){
-          canvas_setproperties({
-            'fillStyle': entity.color,
-          });
-          canvas.fillRect(
-            entity.x,
-            entity.y,
-            entity.width,
-            entity.height
-         );
-      },
+      'todo': draw_entity,
     });
 
     canvas.restore();
@@ -293,55 +340,14 @@ function repo_logic(){
       'groups': [
         'particle',
       ],
-      'todo': function(entity){
-          entity.x += entity.dx;
-          entity.y += entity.dy;
-
-          if(entity.x < -edge_x
-            || entity.x > edge_x
-            || entity.y < -edge_y
-            || entity.y > edge_y){
-              entity_remove({
-                'entities': [
-                  entity.id,
-                ],
-              });
-          }
-      },
+      'todo': move_particle,
     });
 
     entity_group_modify({
       'groups': [
         'gate',
       ],
-      'todo': function(gate){
-          if(gate.interval > 0
-            && frame_counter % gate.interval === 0){
-              gate.change();
-          }
-
-          entity_group_modify({
-            'groups': [
-              'particle',
-            ],
-            'todo': function(particle){
-                if(math_cuboid_overlap({
-                  'height0': particle.height,
-                  'height1': gate.height,
-                  'width0': particle.width,
-                  'width1': gate.width,
-                  'x0': particle.x,
-                  'x1': gate.x,
-                  'y0': particle.y,
-                  'y1': gate.y,
-                })){
-                    if(gate.event !== false){
-                        gate.event(particle);
-                    }
-                }
-            },
-        });
-      },
+      'todo': handle_gate,
     });
 
     core_ui_update({
