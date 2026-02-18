@@ -111,7 +111,7 @@ function repo_init(){
         'edge_y': 300,
         'frame_counter': 0,
       },
-      'info': '<button id=test type=button>Test Level</button><button id=reset_camera type=button>Reset Camera</button>',
+      'info': '<button class=medium id=test type=button>Test Level</button><button id=reset_camera type=button>Reset Camera</button>',
       'menu': true,
       'pointerbinds': {
         'pointermove': {
