@@ -135,7 +135,7 @@ function repo_init(){
         + '<tr><td><input class=mini id=particle_width min=1 step=any type=number><td>Particle Width'
         + '<tr><td><input class=mini id=scroll_speed min=1 step=any type=number><td>Scroll Speed</table>',
       'title': 'ParticleRun-2D.htm',
-      'ui': '<span id=particles></span> Particles',
+      'ui': ' <span id=particles></span>',
     });
     entity_set({
       'properties': {
