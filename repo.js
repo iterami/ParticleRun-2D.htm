@@ -19,9 +19,7 @@ function handle_gate(gate){
     }
 
     entity_group_modify({
-      'groups': [
-        'particle',
-      ],
+      'groups': ['particle'],
       'todo': function(particle){
           if(math_cuboid_overlap({
             'height0': particle.height,
@@ -50,9 +48,7 @@ function move_particle(entity){
       || entity.y < -edge_y
       || entity.y > edge_y){
         entity_remove({
-          'entities': [
-            entity.id,
-          ],
+          'entities': [entity.id],
         });
     }
 }
@@ -85,13 +81,11 @@ function repo_escape(){
 
 function repo_init(){
     core_repo_init({
-      'beforeunload': {
-        'todo': function(event){
-            if(entity_entities.gate_0){
-                core_escape(true);
-                event.preventDefault();
-            }
-        },
+      'beforeunload': function(event){
+          if(entity_entities.gate_0){
+              core_escape(true);
+              event.preventDefault();
+          }
       },
       'events': {
         'reset_camera': {
@@ -114,13 +108,11 @@ function repo_init(){
       'info': '<button class=medium id=test type=button>Test Level</button><button id=reset_camera type=button>Reset Camera</button>',
       'menu': true,
       'pointerbinds': {
-        'pointermove': {
-          'todo': function(){
-              if(core_pointer.down_0){
-                  camera_x -= core_pointer.movement_x;
-                  camera_y -= core_pointer.movement_y;
-              }
-          },
+        'pointermove': function(){
+            if(core_pointer.down_0){
+                camera_x -= core_pointer.movement_x;
+                camera_y -= core_pointer.movement_y;
+            }
         },
       },
       'storage': {
@@ -183,9 +175,7 @@ function repo_load(id){
                         'x': this.x + core_random_integer(this.width) - 2,
                         'y': this.y + core_random_integer(this.width) - 2,
                       },
-                      'types': [
-                        'particle',
-                      ],
+                      'types': ['particle'],
                     });
                 }
             },
@@ -310,9 +300,7 @@ function repo_load(id){
         entity_create({
           'id': 'gate_' + gate,
           'properties': level_gates[gate],
-          'types': [
-            'gate',
-          ],
+          'types': ['gate'],
         });
     }
 }
@@ -337,16 +325,12 @@ function repo_logic(){
     }
 
     entity_group_modify({
-      'groups': [
-        'particle',
-      ],
+      'groups': ['particle'],
       'todo': move_particle,
     });
 
     entity_group_modify({
-      'groups': [
-        'gate',
-      ],
+      'groups': ['gate'],
       'todo': handle_gate,
     });
 
