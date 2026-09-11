@@ -81,12 +81,6 @@ function repo_escape(){
 
 function repo_init(){
     core_repo_init({
-      'beforeunload': function(event){
-          if(entity_entities.gate_0){
-              core_escape(true);
-              event.preventDefault();
-          }
-      },
       'events': {
         'reset_camera': {
           'onclick': function(){
